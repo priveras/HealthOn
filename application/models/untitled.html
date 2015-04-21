@@ -1,0 +1,11 @@
+<?php
+
+class Main_model extends CI_Model{
+
+	public function get_beers()
+	{
+
+		$query = $this->db->get('beers');
+
+		return $query->result_array();
+	}
