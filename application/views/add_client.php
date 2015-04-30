@@ -40,51 +40,145 @@
             </div>
             </div>
             <?php endif ?>
-          	<!-- BASIC FORM ELELEMNTS -->
           	<div class="row mt">
           		<div class="col-lg-12">
                   <div class="form-panel">
                   	  <h4 class="mb"><i class="fa fa-book"></i> Datos del Cliente</h4>
+                      <div rol="form" class="form-horizontal">
                       <?php $attributes = array('role' => 'form', 'class' => 'form-horizontal style-form'); echo form_open('main/add_client_to_db', $attributes); ?>
                       <!-- <form class="form-horizontal style-form" method="get"> -->
+                        <div class="form-inline">
                           <div class="form-group">
-                              <label class="col-sm-2 control-label">Nombre completo</label>
-                              <div class="col-sm-10 col-lg-4">
-                                  <?php 
-                                  $full_name = array(
-                                    'type' => 'text',
-                                    'class' => 'form-control',
-                                    'name' => 'full_name',
-                                    'value' => $this->input->post('full_name'),
-                                    );
+                            <div class="col-sm-10 col-lg-4">
+                              <?php 
+                              $name = array(
+                                'type' => 'text',
+                                'class' => 'form-control',
+                                'name' => 'name',
+                                'placeholder' => 'Nombre(s)',
+                                'value' => $this->input->post('name'),
+                                );
 
-                                  echo form_input($full_name);
-                                  ?>
-                              </div>
+                              echo form_input($name);
+                              ?>
+                            </div>
                           </div>
                           <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Dirección</label>
-                              <div class="col-sm-10 col-lg-4">
-                                  <?php 
-                                  $address = array(
-                                    'type' => 'text',
-                                    'class' => 'form-control',
-                                    'name' => 'address',
-                                    'value' => $this->input->post('address'),
-                                    );
+                            <div class="col-sm-10 col-lg-4">
+                              <?php 
+                              $last_name1 = array(
+                                'type' => 'text',
+                                'class' => 'form-control',
+                                'name' => 'last_name1',
+                                'placeholder' => 'Apellido Paterno',
+                                'value' => $this->input->post('last_name1'),
+                                );
 
-                                  echo form_input($address);
-                                  ?>
-                              </div>
+                              echo form_input($last_name1);
+                              ?>
+                            </div>
                           </div>
                           <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Email</label>
+                            <div class="col-sm-10 col-lg-4">
+                              <?php 
+                              $last_name2 = array(
+                                'type' => 'text',
+                                'class' => 'form-control',
+                                'name' => 'last_name2',
+                                'placeholder' => 'Apellido Materno',
+                                'value' => $this->input->post('last_name2'),
+                                );
+
+                              echo form_input($last_name2);
+                              ?>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-inline">
+                          <div class="form-group">
+                            <div class="col-sm-10 col-lg-4">
+                              <?php 
+                              $street = array(
+                                'type' => 'text',
+                                'class' => 'form-control',
+                                'name' => 'street',
+                                'placeholder' => 'Calle y número',
+                                'value' => $this->input->post('street'),
+                                );
+
+                              echo form_input($street);
+                              ?>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-sm-10 col-lg-4">
+                              <?php 
+                              $interior_number = array(
+                                'type' => 'text',
+                                'class' => 'form-control',
+                                'name' => 'interior_number',
+                                'placeholder' => 'Número interior',
+                                'value' => $this->input->post('interior_number'),
+                                );
+
+                              echo form_input($interior_number);
+                              ?>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-sm-10 col-lg-4">
+                              <?php 
+                              $colonia = array(
+                                'type' => 'text',
+                                'class' => 'form-control',
+                                'name' => 'colonia',
+                                'placeholder' => 'Colonia',
+                                'value' => $this->input->post('colonia'),
+                                );
+
+                              echo form_input($colonia);
+                              ?>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-sm-10 col-lg-4">
+                              <?php 
+                              $delegacion = array(
+                                'type' => 'text',
+                                'class' => 'form-control',
+                                'name' => 'delegacion',
+                                'placeholder' => 'Delegación',
+                                'value' => $this->input->post('delegacion'),
+                                );
+
+                              echo form_input($delegacion);
+                              ?>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-sm-10 col-lg-4">
+                              <?php 
+                              $cp = array(
+                                'type' => 'text',
+                                'class' => 'form-control',
+                                'name' => 'cp',
+                                'placeholder' => 'CP',
+                                'value' => $this->input->post('cp'),
+                                );
+
+                              echo form_input($cp);
+                              ?>
+                            </div>
+                          </div>
+                        </div>
+                          <div class="form-group">
                               <div class="col-sm-10 col-lg-4">
                                 <?php 
                                   $email = array(
                                     'type' => 'email',
                                     'class' => 'form-control',
                                     'name' => 'email',
+                                    'placeholder' => 'Email',
                                     'value' => $this->input->post('email'),
                                     );
 
@@ -93,13 +187,13 @@
                               </div>
                           </div>
                           <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Teléfono</label>
                               <div class="col-sm-10 col-lg-4">
                                 <?php 
                                   $phone = array(
                                     'type' => 'number',
                                     'class' => 'form-control',
                                     'name' => 'phone',
+                                    'placeholder' => 'Teléfono',
                                     'value' => $this->input->post('phone'),
                                     );
 
@@ -108,13 +202,13 @@
                               </div>
                           </div>
                           <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Celular</label>
                               <div class="col-sm-10 col-lg-4">
                                 <?php 
                                   $cellphone = array(
                                     'type' => 'number',
                                     'class' => 'form-control',
                                     'name' => 'cellphone',
+                                    'placeholder' => 'Celular',
                                     'value' => $this->input->post('cellphone'),
                                     );
 
@@ -123,68 +217,59 @@
                               </div>
                           </div>
                           <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Programa</label>
                               <div class="col-sm-10 col-lg-4">
-                                <?php
-                                $options = array(
-                                  'error' => 'Escoger Programa...',
-                                  'OnDetox' => 'OnDetox',
-                                  'MiniOnDetox' => 'Mini OnDetox',
-                                  'Intolerancia' => 'Test de Intolerancia',
-                                  'Consulta' => 'Consulta',
-                                  'Cavitacion' => 'Cavitación',
-                                  );
+                                  <?php 
+                                  $contact_form = array(
+                                    'type' => 'text',
+                                    'class' => 'form-control',
+                                    'name' => 'contact_form',
+                                    'placeholder' => '¿Cómo prefiere ser contactado?',
+                                    'value' => $this->input->post('contact_form'),
+                                    );
 
-                                // foreach ($lists as $row) {
-                                //     $list_id = $row['id'];
-                                //     $list = $row['list'];
-                                //     $options[$list_id] = $list;
-                                // }
-
-                                echo form_dropdown('program', $options, '', 'class="form-control"');
-
-                                ?>
+                                  echo form_input($contact_form);
+                                  ?>
                               </div>
                           </div>
                           <h4 class="mb"><i class="fa fa-barcode"></i> Datos de Facturación</h4>
                           <div class="form-group">
-                              <label class="col-sm-2 control-label">Nombre</label>
                               <div class="col-sm-10 col-lg-4">
                                   <?php 
-                                  $full_name = array(
+                                  $billing_full_name = array(
                                     'type' => 'text',
                                     'class' => 'form-control',
-                                    'name' => 'name_invoice',
-                                    'value' => $this->input->post('full_name'),
+                                    'name' => 'billing_full_name',
+                                    'placeholder' => 'Nombre o razón social',
+                                    'value' => $this->input->post('billing_full_name'),
                                     );
 
-                                  echo form_input($full_name);
+                                  echo form_input($billing_full_name);
                                   ?>
                               </div>
                           </div>
                           <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Dirección</label>
                               <div class="col-sm-10 col-lg-4">
                                   <?php 
-                                  $address = array(
+                                  $billing_address = array(
                                     'type' => 'text',
                                     'class' => 'form-control',
-                                    'name' => 'address',
-                                    'value' => $this->input->post('address'),
+                                    'name' => 'billing_address',
+                                    'placeholder' => 'Dirección Fiscal',
+                                    'value' => $this->input->post('billing_address'),
                                     );
 
-                                  echo form_input($address);
+                                  echo form_input($billing_address);
                                   ?>
                               </div>
                           </div>
                           <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">RFC</label>
                               <div class="col-sm-10 col-lg-4">
                                 <?php 
                                   $rfc = array(
                                     'type' => 'text',
                                     'class' => 'form-control',
                                     'name' => 'rfc',
+                                    'placeholder' => 'RFC',
                                     'value' => $this->input->post('rfc'),
                                     );
 
@@ -199,7 +284,7 @@
                                 'type' => 'submit',
                                 'name' => 'submit',
                                 'class' => 'btn btn-theme btn-block',
-                                'value' => 'CONTINUAR',
+                                'value' => 'GUARDAR CLIENTE',
                                 );
 
                               //<i class="fa fa-lock"></i>

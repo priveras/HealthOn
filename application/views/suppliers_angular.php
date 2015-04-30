@@ -1,6 +1,6 @@
       </head>
 
-      <body ng-app="HealthOnApp" ng-controller="clientsController">
+      <body ng-app="HealthOnApp2" ng-controller="suppliersController">
 
       <section id="container" >
 
@@ -21,12 +21,12 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper site-min-height">
-          	<h3><i class="fa fa-group"></i> Clientes</h3>
+          	<h3><i class="fa fa-archive"></i> Proveedores</h3>
               <div class="row mt">
                   <div class="col-md-12">
                       <div class="content-panel">
                           <table class="table table-striped table-advance table-hover">
-                              <h4><i class="fa fa-list-ul"></i> Directorio<span><a style="margin-left:7px"class="btn btn-success btn-sm" href="<?php echo base_url()?>main/add_client"><i class="fa fa-plus"></i></a></span></h4>
+                              <h4><i class="fa fa-list-ul"></i> Directorio<span><a style="margin-left:7px"class="btn btn-success btn-sm" href="<?php echo base_url()?>main/add_supplier"><i class="fa fa-plus"></i></a></span></h4>
                               <div style="width:300px; margin-left:6px;">
                                 <input type="text" ng-model="nameFilter" class="form-control" placeholder="Buscar...">
                               </div>
@@ -38,16 +38,14 @@
                                   <th><i class="fa fa-envelope-o"></i> Email</th>
                                   <th><i class="fa fa-mobile-phone"></i> Celular</th>
                                   <th><i class="fa fa-phone"></i> Casa</th>
-                                  <!-- <th><i class="fa fa-envelope"></i> Programa</th> -->
                               </tr>
                               </thead>
                               <tbody infinite-scroll='loadMore()' infinite-scroll-distance='2'>
-                                <tr ng-repeat="client in clientsList | filter: nameFilter">
-                                  <td><a href="<?php echo base_url()?>main/detail/{{client.id}}/clients">{{client.name}} {{client.last_name1}}</a></td>
-                                  <td>{{client.email}}</td>
-                                  <td>{{client.cellphone}}</td>
-                                  <td>{{client.phone}}</td>
-                                  <!-- <td>{{client.program}}</td> -->
+                                <tr ng-repeat="supplier in suppliersList | filter: nameFilter">
+                                  <td><a href="<?php echo base_url()?>main/detail_suppliers/{{supplier.id}}/suppliers">{{supplier.name}}</a></td>
+                                  <td>{{supplier.email}}</td>
+                                  <td>{{supplier.cellphone}}</td>
+                                  <td>{{supplier.phone}}</td>
                                 </tr>
                               </tbody>
                           </table>
@@ -85,9 +83,9 @@
     <!-- AngularJS -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular-route.js"></script>
-    <script src="<?php echo base_url()?>assets/js/angular/app.js"></script>
-    <script src="<?php echo base_url()?>assets/js/angular/services.js"></script>
-    <script src="<?php echo base_url()?>assets/js/angular/controllers.js"></script>
+    <script src="<?php echo base_url()?>assets/js/angular/app2.js"></script>
+    <script src="<?php echo base_url()?>assets/js/angular/services2.js"></script>
+    <script src="<?php echo base_url()?>assets/js/angular/controllers2.js"></script>
     <script src="<?php echo base_url()?>assets/js/angular/ng-infinite-scroll.min.js"></script>
 
   </body>

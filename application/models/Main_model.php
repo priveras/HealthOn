@@ -29,8 +29,18 @@ class Main_model extends CI_Model{
 	{
 		$this->db->select('*');
 		$this->db->from('clients');
-		$this->db->join('clients_program', 'clients_program.client_id = clients.id');
-		$this->db->order_by('full_name', 'asc'); 
+		$this->db->order_by('name', 'asc'); 
+
+		$query = $this->db->get();
+
+		return $query->result_array();
+	}
+
+	public function get_suppliers()
+	{
+		$this->db->select('*');
+		$this->db->from('suppliers');
+		$this->db->order_by('name', 'asc'); 
 
 		$query = $this->db->get();
 
@@ -74,6 +84,14 @@ class Main_model extends CI_Model{
 		return $query->result_array();
 	}
 
+	public function get_supplier($supplier_id)
+	{
+		$this->db->where('id', $supplier_id);
+		$query = $this->db->get('suppliers');
+
+		return $query->result_array();
+	}
+
 	public function add_payment_to_db($table, $data_payment)
 	{
 		$this->db->insert($table, $data_payment);
@@ -97,7 +115,7 @@ class Main_model extends CI_Model{
 		$this->db->from('appointments');
 		$this->db->where('appointments.client_id', $client_id);
 		$this->db->order_by("appointments.datetime", "asc"); 
-		$this->db->join('payments', 'payments.appointment_id = appointments.id');
+		// $this->db->join('payments', 'payments.appointment_id = appointments.id');
 
 		$query = $this->db->get();
 
@@ -134,10 +152,9 @@ class Main_model extends CI_Model{
 
 	public function get_calendar()
 	{
-		$this->db->select('*');
-		$this->db->from('appointments');
-		$this->db->join('clients', 'clients.id = appointments.client_id');
-		$this->db->join('clients_program', 'clients_program.id = appointments.client_id');
+		$this->db->select('sessions.*, sessions.id AS session_id, clients.*');
+		$this->db->from('sessions');
+		$this->db->join('clients', 'clients.id = sessions.client_id');
 
 		$query = $this->db->get();
 
@@ -155,6 +172,43 @@ class Main_model extends CI_Model{
 	{
 		$query = $this->db->get('clients');
 		return $query->num_rows();
+	}
+
+	public function get_payments($client_id)
+	{
+		$this->db->where('client_id', $client_id);
+		$query = $this->db->get('payments');
+		return $query->result_array();
+	}
+
+	public function get_sessions($client_id)
+	{
+		$this->db->where('client_id', $client_id);
+		$query = $this->db->get('sessions');
+		return $query->result_array();
+	}
+
+	public function get_programs($client_id)
+	{
+		$this->db->where('client_id', $client_id);
+		$query = $this->db->get('programs');
+		return $query->result_array();
+	}
+
+	public function get_payment_id($payment_id)
+	{
+		$this->db->where('id', $payment_id);
+		$query = $this->db->get('payments');
+
+		return $query->result_array();
+	}
+
+	public function get_session_id($session_id)
+	{
+		$this->db->where('id', $session_id);
+		$query = $this->db->get('sessions');
+
+		return $query->result_array();
 	}
 }
 

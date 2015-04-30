@@ -19,7 +19,7 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-            <a href="<?php echo base_url()?>main/clients"><h3><i class="fa fa-angle-left"></i> Clientes</h3></a>
+          	<a href="<?php echo base_url()?>main/clients"><h3><i class="fa fa-angle-left"></i> Proveedores</h3></a>
             <?php if($this->session->userdata('error')): ?>
             <div class="col-lg-5">
             <div class="alert alert-danger alert-dismissible fade in" role="alert">
@@ -40,14 +40,13 @@
             </div>
             </div>
             <?php endif ?>
-            <!-- BASIC FORM ELELEMNTS -->
-            <div class="row mt">
-              <div class="col-lg-12">
+          	<div class="row mt">
+          		<div class="col-lg-12">
                   <div class="form-panel">
-                      <h4 class="mb"><i class="fa fa-book"></i> Datos del Cliente</h4>
-                      <?php $attributes = array('role' => 'form', 'class' => 'form-horizontal style-form'); echo form_open('main/update_client_to_db' . '/' . $client_data[0]['id'], $attributes); ?>
+                  	  <h4 class="mb"><i class="fa fa-book"></i> Datos de Proveedores</h4>
+                      <div rol="form" class="form-horizontal">
+                      <?php $attributes = array('role' => 'form', 'class' => 'form-horizontal style-form'); echo form_open('main/update_supplier_to_db' . '/' . $supplier_data[0]['id'], $attributes); ?>
                       <!-- <form class="form-horizontal style-form" method="get"> -->
-                          <!-- <form class="form-horizontal style-form" method="get"> -->
                         <div class="form-inline">
                           <div class="form-group">
                             <div class="col-sm-10 col-lg-4">
@@ -57,7 +56,7 @@
                                 'class' => 'form-control',
                                 'name' => 'name',
                                 'placeholder' => 'Nombre(s)',
-                                'value' => $client_data[0]['name'],
+                                'value' => $supplier_data[0]['name'],
                                 );
 
                               echo form_input($name);
@@ -72,7 +71,7 @@
                                 'class' => 'form-control',
                                 'name' => 'last_name1',
                                 'placeholder' => 'Apellido Paterno',
-                                'value' => $client_data[0]['last_name1'],
+                                'value' => $supplier_data[0]['last_name1'],
                                 );
 
                               echo form_input($last_name1);
@@ -87,7 +86,7 @@
                                 'class' => 'form-control',
                                 'name' => 'last_name2',
                                 'placeholder' => 'Apellido Materno',
-                                'value' => $client_data[0]['last_name2'],
+                                'value' => $supplier_data[0]['last_name2'],
                                 );
 
                               echo form_input($last_name2);
@@ -104,7 +103,7 @@
                                 'class' => 'form-control',
                                 'name' => 'street',
                                 'placeholder' => 'Calle y número',
-                                'value' => $client_data[0]['street'],
+                                'value' => $supplier_data[0]['street'],
                                 );
 
                               echo form_input($street);
@@ -119,7 +118,7 @@
                                 'class' => 'form-control',
                                 'name' => 'interior_number',
                                 'placeholder' => 'Número interior',
-                                'value' => $client_data[0]['interior_number'],
+                                'value' => $supplier_data[0]['interior_number'],
                                 );
 
                               echo form_input($interior_number);
@@ -134,7 +133,7 @@
                                 'class' => 'form-control',
                                 'name' => 'colonia',
                                 'placeholder' => 'Colonia',
-                                'value' => $client_data[0]['colonia'],
+                                'value' => $supplier_data[0]['colonia'],
                                 );
 
                               echo form_input($colonia);
@@ -149,7 +148,7 @@
                                 'class' => 'form-control',
                                 'name' => 'delegacion',
                                 'placeholder' => 'Delegación',
-                                'value' => $client_data[0]['delegacion'],
+                                'value' => $supplier_data[0]['delegacion'],
                                 );
 
                               echo form_input($delegacion);
@@ -164,7 +163,7 @@
                                 'class' => 'form-control',
                                 'name' => 'cp',
                                 'placeholder' => 'CP',
-                                'value' => $client_data[0]['cp'],
+                                'value' => $supplier_data[0]['cp'],
                                 );
 
                               echo form_input($cp);
@@ -180,7 +179,7 @@
                                     'class' => 'form-control',
                                     'name' => 'email',
                                     'placeholder' => 'Email',
-                                    'value' => $client_data[0]['email'],
+                                    'value' => $supplier_data[0]['email'],
                                     );
 
                                   echo form_input($email);
@@ -195,7 +194,7 @@
                                     'class' => 'form-control',
                                     'name' => 'phone',
                                     'placeholder' => 'Teléfono',
-                                    'value' => $client_data[0]['phone'],
+                                    'value' => $supplier_data[0]['phone'],
                                     );
 
                                   echo form_input($phone);
@@ -210,25 +209,10 @@
                                     'class' => 'form-control',
                                     'name' => 'cellphone',
                                     'placeholder' => 'Celular',
-                                    'value' => $client_data[0]['cellphone'],
+                                    'value' => $supplier_data[0]['cellphone'],
                                     );
 
                                   echo form_input($cellphone);
-                                  ?>
-                              </div>
-                          </div>
-                          <div class="form-group">
-                              <div class="col-sm-10 col-lg-4">
-                                  <?php 
-                                  $contact_form = array(
-                                    'type' => 'text',
-                                    'class' => 'form-control',
-                                    'name' => 'contact_form',
-                                    'placeholder' => '¿Cómo prefiere ser contactado?',
-                                    'value' => $client_data[0]['contact_form'],
-                                    );
-
-                                  echo form_input($contact_form);
                                   ?>
                               </div>
                           </div>
@@ -241,7 +225,7 @@
                                     'class' => 'form-control',
                                     'name' => 'billing_full_name',
                                     'placeholder' => 'Nombre o razón social',
-                                    'value' => $client_data[0]['billing_full_name'],
+                                    'value' => $supplier_data[0]['billing_full_name'],
                                     );
 
                                   echo form_input($billing_full_name);
@@ -256,7 +240,7 @@
                                     'class' => 'form-control',
                                     'name' => 'billing_address',
                                     'placeholder' => 'Dirección Fiscal',
-                                    'value' => $client_data[0]['billing_address'],
+                                    'value' => $supplier_data[0]['billing_address'],
                                     );
 
                                   echo form_input($billing_address);
@@ -271,10 +255,86 @@
                                     'class' => 'form-control',
                                     'name' => 'rfc',
                                     'placeholder' => 'RFC',
-                                    'value' => $client_data[0]['rfc'],
+                                    'value' => $supplier_data[0]['rfc'],
                                     );
 
                                   echo form_input($rfc);
+                                  ?>
+                              </div>
+                          </div>
+                          <h4 class="mb"><i class="fa fa-bank"></i> Datos de Cuenta</h4>
+                          <div class="form-group">
+                              <div class="col-sm-10 col-lg-4">
+                                  <?php 
+                                  $bank = array(
+                                    'type' => 'text',
+                                    'class' => 'form-control',
+                                    'name' => 'bank',
+                                    'placeholder' => 'Banco',
+                                    'value' => $supplier_data[0]['bank'],
+                                    );
+
+                                  echo form_input($bank);
+                                  ?>
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <div class="col-sm-10 col-lg-4">
+                                  <?php 
+                                  $sucursal = array(
+                                    'type' => 'text',
+                                    'class' => 'form-control',
+                                    'name' => 'sucursal',
+                                    'placeholder' => 'Sucursal',
+                                    'value' => $supplier_data[0]['sucursal'],
+                                    );
+
+                                  echo form_input($sucursal);
+                                  ?>
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <div class="col-sm-10 col-lg-4">
+                                  <?php 
+                                  $cuenta = array(
+                                    'type' => 'text',
+                                    'class' => 'form-control',
+                                    'name' => 'cuenta',
+                                    'placeholder' => 'Cuenta',
+                                    'value' => $supplier_data[0]['cuenta'],
+                                    );
+
+                                  echo form_input($cuenta);
+                                  ?>
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <div class="col-sm-10 col-lg-4">
+                                  <?php 
+                                  $clabe = array(
+                                    'type' => 'text',
+                                    'class' => 'form-control',
+                                    'name' => 'clabe',
+                                    'placeholder' => 'clabe',
+                                    'value' => $supplier_data[0]['clabe'],
+                                    );
+
+                                  echo form_input($clabe);
+                                  ?>
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <div class="col-sm-10 col-lg-4">
+                                  <?php 
+                                  $nombre = array(
+                                    'type' => 'text',
+                                    'class' => 'form-control',
+                                    'name' => 'nombre',
+                                    'placeholder' => 'Nombre',
+                                    'value' => $supplier_data[0]['nombre'],
+                                    );
+
+                                  echo form_input($nombre);
                                   ?>
                               </div>
                           </div>
@@ -285,7 +345,7 @@
                                 'type' => 'submit',
                                 'name' => 'submit',
                                 'class' => 'btn btn-theme btn-block',
-                                'value' => 'GUARDAR CLIENTE',
+                                'value' => 'ACTUALIZAR PROVEEDOR',
                                 );
 
                               //<i class="fa fa-lock"></i>
@@ -296,8 +356,8 @@
                           </div>
                       </form>
                   </div>
-              </div><!-- col-lg-12-->       
-            </div><!-- /row -->
+          		</div><!-- col-lg-12-->      	
+          	</div><!-- /row -->
           </section><! --/wrapper -->
       </section><!-- /MAIN CONTENT -->
 
@@ -328,13 +388,13 @@
     <!--script for this page-->
     <script src="<?php echo base_url()?>assets/js/jquery-ui-1.9.2.custom.min.js"></script>
 
-  <!--custom switch-->
-  <script src="<?php echo base_url()?>assets/js/bootstrap-switch.js"></script>
-  
-  <!--custom tagsinput-->
-  <script src="<?php echo base_url()?>assets/js/jquery.tagsinput.js"></script>
-  
-  <script type="text/javascript" src="<?php echo base_url()?>assets/js/bootstrap-inputmask/bootstrap-inputmask.min.js"></script>  
+	<!--custom switch-->
+	<script src="<?php echo base_url()?>assets/js/bootstrap-switch.js"></script>
+	
+	<!--custom tagsinput-->
+	<script src="<?php echo base_url()?>assets/js/jquery.tagsinput.js"></script>
+	
+	<script type="text/javascript" src="<?php echo base_url()?>assets/js/bootstrap-inputmask/bootstrap-inputmask.min.js"></script>  
 
   </body>
 </html>

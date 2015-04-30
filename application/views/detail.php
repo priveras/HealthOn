@@ -18,6 +18,7 @@
       <?php setlocale(LC_MONETARY, 'en_US'); ?>
 
       <!-- sidebar end-->
+      <!-- Small modal -->
 
       <section id="main-content">
           <section class="wrapper site-min-height">
@@ -35,6 +36,10 @@
                 echo 'Escritorio';
                 break;
 
+              case 'suppliers':
+                echo 'Proveedores';
+                break;
+
             }
             ?></h3></a>
           	<div class="row mt">
@@ -43,7 +48,7 @@
                 <div class="panel panel-default">
                   <div class="panel-heading text-center">
                     <i class="fa fa-user"></i> 
-                    <h3 class="panel-title"><?php echo $client[0]['full_name']?><a href="<?php echo base_url('main/edit_client_view/' . $client[0]['id'] . '/' . $program)?>"><span class="pull-right fa fa-pencil"></span></a></h3>
+                    <h3 class="panel-title"><?php echo $client[0]['name']?> <?php echo $client[0]['last_name1']?> <?php echo $client[0]['last_name2']?><a href="<?php echo base_url('main/edit_client_view/' . $client[0]['id'])?>"><span class="pull-right fa fa-pencil"></span></a></h3>
                   </div>
                   <div class="panel-body">
                     <div class="row">
@@ -58,224 +63,44 @@
                     </div>
                     <br>
                     <div class="row">
+                      <div class="col-lg-4 col-md-4 text-center"></div>
                       <div class="col-lg-4 col-md-4 text-center">
-                      <i class="fa fa-map-marker"></i> <?php echo $client[0]['address']?></div>
-                      <div class="col-lg-4 col-md-4 text-center">
-                        <i class="fa fa-book"></i> <?php echo $client[0]['rfc']?>
+                        <i class="fa fa-map-marker"></i> <?php echo $client[0]['street']?> <?php echo $client[0]['interior_number']?>, <?php echo $client[0]['colonia']?> <?php echo $client[0]['delegacion']?>, <?php echo $client[0]['cp']?>
                       </div>
-                      <div class="col-lg-4 col-md-4 text-center"><?php echo $program?></div>
+                      <div class="col-lg-4 col-md-4 text-center"></div>
                     </div>
                   </div>
                 </div>
               </div>
-          		<div class="col-lg-12">
-                <?php if($program == "OnDetox" || $program == "Intolerancia" ): ?>
-                <div class="content-panel">
-                    <table class="table table-striped table-advance table-hover">
-                      <h4><i class="fa fa-flask"></i> Test de Intolerancia<span><a style="margin-left:7px"class="btn btn-success btn-sm" href="<?php echo base_url('main/add_view/' . $client[0]['id'] . '/' . $program . '/' . 'add_intolerance')?>"><i class="fa fa-plus"></i></a></span></h4>
-                        <hr>
-                        <thead>
-                        <tr>
-                            <th><i class="fa fa-calendar"></i> Fecha</th>
-                            <th><i class="fa fa-clock-o"></i> Hora</th>
-                            <th><i class="fa fa-truck"></i> Fecha Envío</th>
-                            <th><i class="fa fa-user-md"></i> Terapeuta</th>
-                            <th><i class=" fa fa-usd"></i> Pago a proveedor</th>
-                            <th><i class=" fa fa-usd"></i> Estatus de Pago</th>
-                            <th><i class=" fa fa-usd"></i> Tipo de Pago</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php if(empty($appointments)):?>
-                        <tr>
-                          <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
-                        </tr>
-                        <?php else: ?>
-                        <?php foreach ($appointments as $row):?>
-                        <?php if($row['category'] == 'intolerance'):?>
-                        <tr>
-                            <td><a href="<?php echo base_url('main/edit_view/' . $client[0]['id'] . '/' . $program . '/' . 'edit_intolerance' . '/' . $row['appointment_id'])?>"><?php echo date_format(new DateTime($row['datetime']), 'd F Y')?></a></td>
-                            <td class="hidden-phone"><?php echo date_format(new DateTime($row['datetime']), 'g:i a')?></td>
-                            <td><?php echo date_format(new DateTime($row['delivery_date']), 'd F Y')?></td>
-                            <td><?php echo $row['therapist']?></td>
-                            <td><?php echo money_format('%(#10n', $row['payment']) . "\n";?></td>
-                            <?php switch ($row['payment_status']) {
-                              case 'Pagado':
-                                $label = 'success';
-                                break;
-                              
-                              case 'Pendiente':
-                                $label = 'warning';
-                                break;
-                            }
-                            ?>
-                            <td><span class="label label-<?php echo $label ?> label-mini"><?php echo $row['payment_status']?></span></td>
-                            <td><?php echo $row['payment_type'] ?></td>
-                        </tr>
-                        <?php endif ?>
-                        <?php endforeach ?>
-                        <?php endif ?>
-                        </tbody>
-                    </table>
-                </div><!-- /content-panel -->
-                <br>
-                <?php endif ?>
-                <?php if($program == "OnDetox" || $program == "MiniOnDetox" ): ?>
-                <div class="content-panel">
-                    <table class="table table-striped table-advance table-hover">
-                      <h4><i class="fa fa-glass"></i> Jugos<span><a style="margin-left:7px"class="btn btn-info btn-sm" href="<?php echo base_url('main/add_view/' . $client[0]['id'] . '/' . $program . '/' . 'add_juices')?>"><i class="fa fa-plus"></i></a></span></h4>
-                        <hr>
-                        <thead>
-                        <tr>
-                            <th><i class="fa fa-truck"></i> Fecha Envío</th>
-                            <th><i class="fa fa-clock-o"></i> Hora</th>
-                            <th><i class="fa fa-map-marker"></i> Ubicacion</th>
-                            <th><i class="fa fa-sun-o"></i> Días</th>
-                            <th><i class="fa fa-file-o"></i> Especificaciones</th>
-                            <th><i class=" fa fa-usd"></i> Pago a proveedor</th>
-                            <th><i class=" fa fa-usd"></i> Estatus de Pago</th>
-                            <th><i class=" fa fa-usd"></i> Tipo de Pago</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php if(empty($appointments)):?>
-                        <tr>
-                          <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
-                        </tr>
-                        <?php else: ?>
-                        <?php foreach ($appointments as $row):?>
-                        <?php if($row['category'] == 'juices'):?>
-                        <tr>
-                            <td><a href="<?php echo base_url('main/edit_view/' . $client[0]['id'] . '/' . $program . '/' . 'edit_juices' . '/' . $row['appointment_id'])?>"><?php echo date_format(new DateTime($row['datetime']), 'd F Y')?></a></td>
-                            <td class="hidden-phone"><?php echo date_format(new DateTime($row['datetime']), 'g:i a')?></td>
-                            <td><?php echo $row['address']?></td>
-                            <td><?php echo $row['days']?></td>
-                            <td><?php echo $row['comments']?></td>
-                            <td><?php echo money_format('%(#10n', $row['payment']) . "\n";?></td>
-                            <?php switch ($row['payment_status']) {
-                              case 'Pagado':
-                                $label = 'success';
-                                break;
-                              
-                              case 'Pendiente':
-                                $label = 'warning';
-                                break;
-                            }
-                            ?>
-                            <td><span class="label label-<?php echo $label ?> label-mini"><?php echo $row['payment_status']?></span></td>
-                            <td><?php echo $row['payment_type'] ?></td>
-                        </tr>
-                        <?php endif ?>
-                        <?php endforeach ?>
-                        <?php endif ?>
-                        </tbody>
-                    </table>
-                </div><!-- /content-panel -->
-                <?php endif ?>
-                <?php if($program == "Consulta"): ?>
-                <div class="content-panel">
-                    <table class="table table-striped table-advance table-hover">
-                      <h4><i class="fa fa-user-md"></i> Consulta<span><a style="margin-left:7px"class="btn btn-success btn-sm" href="<?php echo base_url('main/add_view/' . $client[0]['id'] . '/' . $program . '/' . 'add_consultation')?>"><i class="fa fa-plus"></i></a></span></h4>
-                        <hr>
-                        <thead>
-                        <tr>
-                            <th><i class="fa fa-calendar"></i> Fecha de Consulta</th>
-                            <th><i class="fa fa-clock-o"></i> Hora</th>
-                            <th><i class="fa fa-paperclip"></i> Tipo</th>
-                            <th><i class=" fa fa-usd"></i> Pago a Nutrióloga</th>
-                            <th><i class=" fa fa-usd"></i> Estatus de Pago</th>
-                            <th><i class=" fa fa-usd"></i> Tipo de Pago</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php if(empty($appointments)):?>
-                        <tr>
-                          <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
-                        </tr>
-                        <?php else: ?>
-                        <?php foreach ($appointments as $row):?>
-                        <?php if($row['category'] == 'consultation'):?>
-                        <tr>
-                            <td><a href="<?php echo base_url('main/edit_view/' . $client[0]['id'] . '/' . $program . '/' . 'edit_consultation' . '/' . $row['appointment_id'])?>"><?php echo date_format(new DateTime($row['datetime']), 'd F Y')?></a></td>
-                            <td class="hidden-phone"><?php echo date_format(new DateTime($row['datetime']), 'g:i a')?></td>
-                            <td><?php echo $row['type']?></td>
-                            <td><?php echo money_format('%(#10n', $row['payment']) . "\n";?></td>
-                            <?php switch ($row['payment_status']) {
-                              case 'Pagado':
-                                $label = 'success';
-                                break;
-                              
-                              case 'Pendiente':
-                                $label = 'warning';
-                                break;
-                            }
-                            ?>
-                            <td><span class="label label-<?php echo $label ?> label-mini"><?php echo $row['payment_status']?></span></td>
-                            <td><?php echo $row['payment_type'] ?></td>
-                        </tr>
-                        <?php endif ?>
-                        <?php endforeach ?>
-                        <?php endif ?>
-                        </tbody>
-                    </table>
-                </div><!-- /content-panel -->
-                <?php endif ?>
-                <?php if($program == "Cavitacion"): ?>
-                <div class="content-panel">
-                    <table class="table table-striped table-advance table-hover">
-                      <h4><i class="fa fa-stethoscope"></i> Cavitación<span><a style="margin-left:7px"class="btn btn-success btn-sm" href="<?php echo base_url('main/add_view/' . $client[0]['id'] . '/' . $program . '/' . 'add_cavitation')?>"><i class="fa fa-plus"></i></a></span></h4>
-                        <hr>
-                        <thead>
-                        <tr>
-                            <th><i class="fa fa-calendar"></i> Fecha de Consulta</th>
-                            <th><i class="fa fa-clock-o"></i> Hora</th>
-                            <th><i class="fa fa-paperclip"></i> Tipo</th>
-                            <th><i class=" fa fa-usd"></i> Pago a proveedor</th>
-                            <th><i class=" fa fa-usd"></i> Estatus de Pago</th>
-                            <th><i class=" fa fa-usd"></i> Tipo de Pago</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php if(empty($appointments)):?>
-                        <tr>
-                          <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
-                        </tr>
-                        <?php else: ?>
-                        <?php foreach ($appointments as $row):?>
-                        <?php if($row['category'] == 'cavitation'):?>
-                        <tr>
-                            <td><a href="<?php echo base_url('main/edit_view/' . $client[0]['id'] . '/' . $program . '/' . 'edit_cavitation' . '/' . $row['appointment_id'])?>"><?php echo date_format(new DateTime($row['datetime']), 'd F Y')?></a></td>
-                            <td class="hidden-phone"><?php echo date_format(new DateTime($row['datetime']), 'g:i a')?></td>
-                            <td><?php echo $row['type']?></td>
-                            <?php if($row['payment_status'] == 1):?>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <?php else: ?>
-                            <td><?php echo money_format('%(#10n', $row['payment']) . "\n";?></td>
-                            <?php switch ($row['payment_status']) {
-                              case 'Pagado':
-                                $label = 'success';
-                                break;
-                              
-                              case 'Pendiente':
-                                $label = 'warning';
-                                break;
-                            }
-                            ?>
-                            <td><span class="label label-<?php echo $label ?> label-mini"><?php echo $row['payment_status']?></span></td>
-                            <td><?php echo $row['payment_type'] ?></td>
-                            <?php endif ?>
-                        </tr>
-                        <?php endif ?>
-                        <?php endforeach ?>
-                        <?php endif ?>
-                        </tbody>
-                    </table>
-                </div><!-- /content-panel -->
-                <?php endif ?>
-          		</div>
           	</div>
+            <div class="row">
+              <div class="col-lg-2"></div>
+              <div class="col-lg-4 text-center">
+                <a href="<?php echo base_url('main/payments/'  . $client[0]['id'])?>" class="btn btn-primary" style="width:100%;">Pagos</a>
+              </div>
+              <div class="col-lg-4 text-center">
+                <a href="<?php echo base_url('main/sessions/'  . $client[0]['id'])?>" class="btn btn-success" style="width:100%;">Citas</a>
+              </div>
+              <div class="col-lg-2"></div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-2"></div>
+              <div class="col-lg-8">
+                <ul class="list-group text-center">
+                  <li class="list-group-item list-group-item-warning">Programas</li>
+                  <?php if(!empty($sessions)): ?>
+                  <?php foreach ($sessions as $row):?>
+                  <li class="list-group-item"><?php echo $row['program']?></li>
+                  <?php endforeach ?>
+                  <?php else: ?>
+                  <li class="list-group-item">No es parte de ningún programa</li>
+                  <?php endif ?>
+                </ul>
+                <div class="col-lg-2"></div>
+              </div>
+            </div>
+            <br>
 		      </section><!--/wrapper -->
       </section><!-- /MAIN CONTENT -->
 
