@@ -129,22 +129,6 @@
                             case 'OnDetox':
                               echo "
                               <div class='form-group'>
-                                <label class='col-sm-2 col-sm-2 control-label'># Días</label>
-                                <div class='col-sm-10 col-lg-4'>";
-                                    $dias = array(
-                                      'type' => 'text',
-                                      'class' => 'form-control',
-                                      'name' => 'dias',
-                                      'value' => $this->input->post('dias'),
-                                      );
-
-                                    echo form_input($dias);
-                                echo "    
-                                </div>
-                              </div>
-                              ";
-                              echo "
-                              <div class='form-group'>
                                 <label class='col-sm-2 col-sm-2 control-label'># Entrega</label>
                                 <div class='col-sm-10 col-lg-4'>";
                                     $entrega = array(
