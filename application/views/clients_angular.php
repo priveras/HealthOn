@@ -38,6 +38,7 @@
                                   <th><i class="fa fa-envelope-o"></i> Email</th>
                                   <th><i class="fa fa-mobile-phone"></i> Celular</th>
                                   <th><i class="fa fa-phone"></i> Casa</th>
+                                  <th><i class="fa fa-phone"></i> Programa</th>
                                   <!-- <th><i class="fa fa-envelope"></i> Programa</th> -->
                               </tr>
                               </thead>
@@ -47,6 +48,7 @@
                                   <td>{{client.email}}</td>
                                   <td>{{client.cellphone}}</td>
                                   <td>{{client.phone}}</td>
+                                  <td>{{client.programs}}</td>
                                   <!-- <td>{{client.program}}</td> -->
                                 </tr>
                               </tbody>

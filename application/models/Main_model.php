@@ -27,9 +27,12 @@ class Main_model extends CI_Model{
 
 	public function get_clients()
 	{
-		$this->db->select('*');
+		$this->db->select('clients.*, GROUP_CONCAT(programs.program SEPARATOR " - ") as programs');
 		$this->db->from('clients');
 		$this->db->order_by('name', 'asc'); 
+		$this->db->join('programs', 'programs.client_id = clients.id', 'left');
+		$this->db->group_by("id"); 
+
 
 		$query = $this->db->get();
 
@@ -114,7 +117,7 @@ class Main_model extends CI_Model{
 		$this->db->select('*');
 		$this->db->from('appointments');
 		$this->db->where('appointments.client_id', $client_id);
-		$this->db->order_by("appointments.datetime", "asc"); 
+		$this->db->order_by("appointments.datetime", "desc"); 
 		// $this->db->join('payments', 'payments.appointment_id = appointments.id');
 
 		$query = $this->db->get();
@@ -128,7 +131,6 @@ class Main_model extends CI_Model{
 		$this->db->from('appointments');
 		$this->db->where('appointments.client_id', $client_id);
 		$this->db->where('appointments.id', $post_id);
-		$this->db->join('payments', 'payments.appointment_id = appointments.id');
 
 		$query = $this->db->get();
 
@@ -207,6 +209,19 @@ class Main_model extends CI_Model{
 	{
 		$this->db->where('id', $session_id);
 		$query = $this->db->get('sessions');
+
+		return $query->result_array();
+	}
+
+	public function get_juices_reset($category)
+	{
+		$this->db->select('*');
+		$this->db->from('appointments');
+		$this->db->where('appointments.category', $category);
+		$this->db->order_by("appointments.datetime", "desc"); 
+		$this->db->join('clients', 'clients.id = appointments.client_id');
+
+		$query = $this->db->get();
 
 		return $query->result_array();
 	}

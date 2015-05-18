@@ -94,9 +94,19 @@ class Main extends CI_Controller {
 	{
 		$data['client'] = $this->main_model->get_client($client_id);
 		$data['sessions'] = $this->main_model->get_sessions($client_id);
+		$data['programs'] = $this->main_model->get_programs($client_id);
 		$data['source'] = $source;
 		$this->load->view('html');
 		$this->load->view('detail', $data);	
+	}
+
+	public function detail_program($client_id, $program)
+	{
+		$data['client'] = $this->main_model->get_client($client_id);
+		$data['appointments'] = $this->main_model->get_appointments($client_id);
+		$data['program'] = $program;
+		$this->load->view('html');
+		$this->load->view('detail_program', $data);	
 	}
 
 	public function detail_suppliers($supplier_id, $source)
@@ -186,6 +196,14 @@ class Main extends CI_Controller {
 		$this->load->view('edit_payment', $data);		
 	}
 
+	public function edit_payment2($payment_id, $client_id)
+	{
+		$data['client'] = $this->main_model->get_client($client_id);
+		$data['payment_data'] = $this->main_model->get_payment_id($payment_id);
+		$this->load->view('html');
+		$this->load->view('edit_payment2', $data);		
+	}
+
 	public function edit_session($session_id, $client_id, $program, $view)
 	{
 		$data['client'] = $this->main_model->get_client($client_id);
@@ -217,8 +235,12 @@ class Main extends CI_Controller {
 		$this->form_validation->set_rules('billing', 'Require Factura', 'required|trim');
 		$this->form_validation->set_rules('program', 'Programa', 'required|trim');
 		$this->form_validation->set_rules('payment', 'Pago', 'trim');
+		$this->form_validation->set_rules('payment_cavitation', 'Pago', 'trim');
+		$this->form_validation->set_rules('totalpago', 'Total', 'trim');
 		$this->form_validation->set_rules('payment_type', 'Forma de pago', 'trim');	
 		$this->form_validation->set_rules('comments', 'Comentarios', 'trim');	
+		$this->form_validation->set_rules('datosdepago', 'Datos de Pago', 'trim');	
+		$this->form_validation->set_rules('numerodefactura', 'Numero de Factura', 'trim');	
 
 		if($this->form_validation->run())
 		{
@@ -229,8 +251,12 @@ class Main extends CI_Controller {
 					'billing' => $this->input->post('billing'),
 					'program' => $this->input->post('program'),
 					'payment' => $this->input->post('payment'),
+					'payment_cavitation' => $this->input->post('payment_cavitation'),
+					'totalpago' => $this->input->post('totalpago'),
 					'payment_type' => $this->input->post('payment_type'),
 					'comments' => $this->input->post('comments'),
+					'datosdepago' => $this->input->post('datosdepago'),
+					'numerodefactura' => $this->input->post('numerodefactura'),
 					);
 
 				$this->main_model->update_to_db('payments', $data, $payment_id);
@@ -254,8 +280,12 @@ class Main extends CI_Controller {
 		$this->form_validation->set_rules('billing', 'Require Factura', 'required|trim');
 		$this->form_validation->set_rules('program', 'Programa', 'required|trim');
 		$this->form_validation->set_rules('payment', 'Pago', 'trim');
+		$this->form_validation->set_rules('payment_cavitation', 'Pago', 'trim');
+		$this->form_validation->set_rules('totalpago', 'Total', 'trim');
 		$this->form_validation->set_rules('payment_type', 'Forma de pago', 'trim');	
 		$this->form_validation->set_rules('comments', 'Comentarios', 'trim');	
+		$this->form_validation->set_rules('datosdepago', 'Datos de Pago', 'trim');	
+		$this->form_validation->set_rules('numerodefactura', 'Numero de Factura', 'trim');	
 
 		if($this->form_validation->run())
 		{
@@ -266,8 +296,12 @@ class Main extends CI_Controller {
 					'billing' => $this->input->post('billing'),
 					'program' => $this->input->post('program'),
 					'payment' => $this->input->post('payment'),
+					'payment_cavitation' => $this->input->post('payment_cavitation'),
+					'totalpago' => $this->input->post('totalpago'),
 					'payment_type' => $this->input->post('payment_type'),
 					'comments' => $this->input->post('comments'),
+					'datosdepago' => $this->input->post('datosdepago'),
+					'numerodefactura' => $this->input->post('numerodefactura'),
 					);
 
 				$this->main_model->add_to_db('payments', $data);
@@ -328,7 +362,13 @@ class Main extends CI_Controller {
 					'distancia' => $this->input->post('distancia'),
 					);
 
+				$data2 = array(
+					'client_id' => $client_id,
+					'program' => $this->input->post('program'),
+					);
+
 				$this->main_model->add_to_db('sessions', $data);
+				$this->main_model->add_to_db('programs', $data2);
 				redirect('main/sessions/' . $client_id . '/' . 'clients');
 			}
 			else
@@ -406,13 +446,15 @@ class Main extends CI_Controller {
 		$this->form_validation->set_rules('name', 'Nombre completo', 'required|trim');
 		$this->form_validation->set_rules('last_name1', 'Apellida Paterno', 'required|trim');
 		$this->form_validation->set_rules('last_name2', 'Apellido Materno', 'required|trim');
-		$this->form_validation->set_rules('street', 'Calle y número', 'required|trim');
-		$this->form_validation->set_rules('interior_number', 'Numero interior', 'required|trim');
-		$this->form_validation->set_rules('colonia', 'Colonia', 'required|trim');
-		$this->form_validation->set_rules('delegacion', 'Delegacion', 'required|trim');
-		$this->form_validation->set_rules('cp', 'CP', 'required|trim');
+		$this->form_validation->set_rules('street', 'Calle y número', 'trim');
+		$this->form_validation->set_rules('interior_number', 'Numero interior', 'trim');
+		$this->form_validation->set_rules('colonia', 'Colonia', 'trim');
+		$this->form_validation->set_rules('delegacion', 'Delegacion', 'trim');
+		$this->form_validation->set_rules('cp', 'CP', 'trim');
+		$this->form_validation->set_rules('ciudad', 'Ciudad', 'trim');
 		$this->form_validation->set_rules('contact_form', 'Forma de contacto', 'trim');
-		$this->form_validation->set_rules('email', 'Email', 'required|trim|is_unique[clients.email]');
+		$this->form_validation->set_rules('recomendo', 'Recomendo', 'trim');
+		$this->form_validation->set_rules('email', 'Email', 'trim'); //required|trim|is_unique[clients.email]
 		$this->form_validation->set_rules('phone', 'Teléfono', 'trim');
 		$this->form_validation->set_rules('cellphone', 'Celular', 'trim');
 		$this->form_validation->set_rules('billing_full_name', 'Nombre', 'trim');
@@ -442,6 +484,8 @@ class Main extends CI_Controller {
 				'billing_full_name' => $this->input->post('billing_full_name'),
 				'billing_address' => $this->input->post('billing_address'),
 				'rfc' => $this->input->post('rfc'),
+				'ciudad' => $this->input->post('ciudad'),
+				'recomendo' => $this->input->post('recomendo'),
 				);
 
 				$program = $this->input->post('program');
@@ -745,13 +789,15 @@ class Main extends CI_Controller {
 		$this->form_validation->set_rules('name', 'Nombre completo', 'required|trim');
 		$this->form_validation->set_rules('last_name1', 'Apellida Paterno', 'required|trim');
 		$this->form_validation->set_rules('last_name2', 'Apellido Materno', 'required|trim');
-		$this->form_validation->set_rules('street', 'Calle y número', 'required|trim');
-		$this->form_validation->set_rules('interior_number', 'Numero interior', 'required|trim');
-		$this->form_validation->set_rules('colonia', 'Colonia', 'required|trim');
-		$this->form_validation->set_rules('delegacion', 'Delegacion', 'required|trim');
-		$this->form_validation->set_rules('cp', 'CP', 'required|trim');
+		$this->form_validation->set_rules('street', 'Calle y número', 'trim');
+		$this->form_validation->set_rules('interior_number', 'Numero interior', 'trim');
+		$this->form_validation->set_rules('colonia', 'Colonia', 'trim');
+		$this->form_validation->set_rules('delegacion', 'Delegacion', 'trim');
+		$this->form_validation->set_rules('cp', 'CP', 'trim');
+		$this->form_validation->set_rules('ciudad', 'Ciudad', 'trim');
 		$this->form_validation->set_rules('contact_form', 'Forma de contacto', 'trim');
-		$this->form_validation->set_rules('email', 'Email', 'required|trim');
+		$this->form_validation->set_rules('recomendo', 'Recomendo', 'trim');
+		$this->form_validation->set_rules('email', 'Email', 'trim'); //required|trim|is_unique[clients.email]
 		$this->form_validation->set_rules('phone', 'Teléfono', 'trim');
 		$this->form_validation->set_rules('cellphone', 'Celular', 'trim');
 		$this->form_validation->set_rules('billing_full_name', 'Nombre', 'trim');
@@ -781,6 +827,8 @@ class Main extends CI_Controller {
 				'billing_full_name' => $this->input->post('billing_full_name'),
 				'billing_address' => $this->input->post('billing_address'),
 				'rfc' => $this->input->post('rfc'),
+				'ciudad' => $this->input->post('ciudad'),
+				'recomendo' => $this->input->post('recomendo'),
 				);
 
 				$this->main_model->update_to_db('clients', $data, $client_id);
@@ -824,8 +872,12 @@ class Main extends CI_Controller {
 					$category = "Cavitación para ";
 					$color = '#5cb85c';
 					break;
-				case 'Consulta':
-					$category = "Consulta para ";
+				case 'Consulta1aVez':
+					$category = "Consulta 1a Vez para ";
+					$color = '#aaaaaa';
+					break;
+				case 'ConsultaSubsecuente':
+					$category = "Consulta Subsecuente para ";
 					$color = '#aaaaaa';
 					break;
 			}
@@ -887,6 +939,176 @@ class Main extends CI_Controller {
 		$data['client'] = $this->main_model->get_client($client_id);
 		$this->load->view('html');
 		$this->load->view('session_add_program', $data);
+	}
+
+	public function add_program_detail_to_db($client_id)
+	{
+		$data = array(
+			'client_id' => $client_id,
+			'program' => $this->input->post('program'),
+			);
+
+		$this->main_model->add_to_db('programs', $data);
+
+		redirect('main/detail_program/' . $client_id  . '/' . $this->input->post('program'));
+	}
+
+	public function add_resettest($client_id, $program)
+	{
+		$data['client'] = $this->main_model->get_client($client_id);
+		$data['program'] = $program;
+		$this->load->view('html');
+		$this->load->view('add_intolerance', $data);
+	}
+
+	public function edit_resettest($client_id, $program, $post_id)
+	{
+		$data['client'] = $this->main_model->get_client($client_id);
+		$data['data'] = $this->main_model->get_appointment($client_id, $post_id);
+		$data['program'] = $program;
+		$this->load->view('html');
+		$this->load->view('edit_intolerance', $data);
+	}
+
+	public function add_resettest_to_db($client_id)
+	{
+		$this->form_validation->set_rules('therapist', 'Terapeuta', 'trim');
+		$this->form_validation->set_rules('datetime', 'Fecha y hora', 'trim');
+		$this->form_validation->set_rules('delivery_date', 'Entrega', 'trim');
+		$this->form_validation->set_rules('results_date', 'Resultados', 'trim');
+		$this->form_validation->set_rules('comments', 'Comentarios', 'trim');
+		$this->form_validation->set_rules('program', 'Programa', 'trim');
+
+		if($this->form_validation->run())
+		{
+			$data = array(
+				'client_id' => $client_id,
+				'category' => 'resettest',
+				'therapist' => $this->input->post('therapist'),
+				'datetime' => $this->input->post('datetime'),
+				'delivery_date' => $this->input->post('delivery_date'),
+				'results_date' => $this->input->post('results_date'),
+				'comments' => $this->input->post('comments'),
+				'program' => $this->input->post('program'),
+				);
+
+			$this->main_model->add_to_db('appointments', $data);
+
+			redirect('main/detail_program/' . $client_id . '/' . $this->input->post('program'));
+		}
+	}
+
+	public function update_resettest_to_db($client_id, $post_id)
+	{
+		$this->form_validation->set_rules('therapist', 'Terapeuta', 'trim');
+		$this->form_validation->set_rules('datetime', 'Fecha y hora', 'trim');
+		$this->form_validation->set_rules('delivery_date', 'Entrega', 'trim');
+		$this->form_validation->set_rules('results_date', 'Resultados', 'trim');
+		$this->form_validation->set_rules('comments', 'Comentarios', 'trim');
+		$this->form_validation->set_rules('program', 'Programa', 'trim');
+
+		if($this->form_validation->run())
+		{
+			$data = array(
+				'client_id' => $client_id,
+				'category' => 'resettest',
+				'therapist' => $this->input->post('therapist'),
+				'datetime' => $this->input->post('datetime'),
+				'delivery_date' => $this->input->post('delivery_date'),
+				'results_date' => $this->input->post('results_date'),
+				'comments' => $this->input->post('comments'),
+				'program' => $this->input->post('program'),
+				);
+
+			$this->main_model->update_to_db('appointments', $data, $post_id);
+
+			redirect('main/detail_program/' . $client_id . '/' . $this->input->post('program'));
+		}
+	}
+
+	public function add_juices($client_id, $program)
+	{
+		$data['client'] = $this->main_model->get_client($client_id);
+		$data['program'] = $program;
+		$this->load->view('html');
+		$this->load->view('add_juices', $data);
+	}
+
+	public function edit_juices($client_id, $program, $post_id)
+	{
+		$data['client'] = $this->main_model->get_client($client_id);
+		$data['data'] = $this->main_model->get_appointment($client_id, $post_id);
+		$data['program'] = $program;
+		$this->load->view('html');
+		$this->load->view('edit_juices', $data);
+	}
+
+	public function add_juices_to_db($client_id)
+	{
+		$this->form_validation->set_rules('datetime', 'Fecha y hora', 'trim');
+		$this->form_validation->set_rules('comments', 'Comentarios', 'trim');
+		$this->form_validation->set_rules('program', 'Programa', 'trim');
+
+		if($this->form_validation->run())
+		{
+			$data = array(
+				'client_id' => $client_id,
+				'category' => 'juices',
+				'address' => $this->input->post('address'),
+				'datetime' => $this->input->post('datetime'),
+				'days' => $this->input->post('days'),
+				'numerodeentrega' => $this->input->post('numerodeentrega'),
+				'ricardo' => $this->input->post('ricardo'),
+				'llamada' => $this->input->post('llamada'),
+				'comments' => $this->input->post('comments'),
+				'program' => $this->input->post('program'),
+				);
+
+			$this->main_model->add_to_db('appointments', $data);
+
+			redirect('main/detail_program/' . $client_id . '/' . $this->input->post('program'));
+		}
+	}
+
+	public function update_juices_to_db($client_id, $post_id)
+	{
+		$this->form_validation->set_rules('datetime', 'Fecha y hora', 'trim');
+		$this->form_validation->set_rules('comments', 'Comentarios', 'trim');
+		$this->form_validation->set_rules('program', 'Programa', 'trim');
+
+		if($this->form_validation->run())
+		{
+			$data = array(
+				'client_id' => $client_id,
+				'category' => 'juices',
+				'address' => $this->input->post('address'),
+				'datetime' => $this->input->post('datetime'),
+				'days' => $this->input->post('days'),
+				'numerodeentrega' => $this->input->post('numerodeentrega'),
+				'ricardo' => $this->input->post('ricardo'),
+				'llamada' => $this->input->post('llamada'),
+				'comments' => $this->input->post('comments'),
+				'program' => $this->input->post('program'),
+				);
+
+			$this->main_model->update_to_db('appointments', $data, $post_id);
+
+			redirect('main/detail_program/' . $client_id . '/' . $this->input->post('program'));
+		}
+	}
+
+	public function juices()
+	{
+		$data['data'] = $this->main_model->get_juices_reset('juices');
+		$this->load->view('html');
+		$this->load->view('juices', $data);
+	}
+
+	public function resettest()
+	{
+		$data['data'] = $this->main_model->get_juices_reset('resettest');
+		$this->load->view('html');
+		$this->load->view('resettest', $data);
 	}
 }
 

@@ -20,7 +20,7 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-            <a href="<?php echo base_url('main/detail/' . $client[0]['id'] . '/' . $program . '/' . 'clients')?>"><h3><i class="fa fa-angle-left"></i> <?php echo $client[0]['full_name']?></h3></a>
+            <a href="<?php echo base_url('main/detail_program/' . $client[0]['id'] . '/' . $program . '/' . 'clients')?>"><h3><i class="fa fa-angle-left"></i> <?php echo $client[0]['name'] . $client[0]['last_name1'] . ' - ' . $program?></h3></a>
             <?php if($this->session->userdata('error')): ?>
             <div class="col-lg-5">
             <div class="alert alert-danger alert-dismissible fade in" role="alert">
@@ -37,8 +37,8 @@
             <div class="row mt">
               <div class="col-lg-12">
                   <div class="form-panel">
-                      <h4 class="mb"><i class="fa fa-calendar-o"></i> Datos de Cita</h4>
-                      <?php $attributes = array('role' => 'form', 'class' => 'form-horizontal style-form'); echo form_open('main/update_appointments_to_db/' . $client[0]['id'], $attributes); ?>
+                      <h4 class="mb"><i class="fa fa-folder"></i> Datos para Jugos</h4>
+                      <?php $attributes = array('role' => 'form', 'class' => 'form-horizontal style-form'); echo form_open('main/update_juices_to_db/' . $client[0]['id'] . '/' . $data[0]['id'], $attributes); ?>
                       <!-- <form class="form-horizontal style-form" method="get"> -->
                           <div class="form-group">
                               <label class="col-sm-2 control-label">Fecha y hora de envío</label>
@@ -49,7 +49,7 @@
                                     'type' => 'text',
                                     'class' => 'form-control',
                                     'name' => 'datetime',
-                                    'value' => $appointment[0]['datetime'],
+                                    'value' => $data[0]['datetime'],
                                     );
 
                                   echo form_input($datetime);
@@ -66,7 +66,7 @@
                                     'type' => 'text',
                                     'class' => 'form-control',
                                     'name' => 'address',
-                                    'value' => $appointment[0]['address'],
+                                    'value' => $data[0]['address'],
                                     );
 
                                   echo form_input($address);
@@ -81,13 +81,64 @@
                                     'type' => 'text',
                                     'class' => 'form-control',
                                     'name' => 'days',
-                                    'value' => $appointment[0]['days'],
+                                    'value' => $data[0]['days'],
                                     );
 
                                   echo form_input($days);
                                   ?>
                               </div>
                           </div>
+                          <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Número de entrega</label>
+                              <div class="col-sm-10 col-lg-4">
+                                  <?php 
+                                  $numerodeentrega = array(
+                                    'type' => 'text',
+                                    'class' => 'form-control',
+                                    'name' => 'numerodeentrega',
+                                    'value' => $data[0]['numerodeentrega'],
+                                    );
+
+                                  echo form_input($numerodeentrega);
+                                  ?>
+                              </div>
+                          </div>
+                          <div class='form-group'>
+                            <label class='col-sm-2 col-sm-2 control-label'>Confirmado por Ricardo</label>
+                            <div class='col-sm-10 col-lg-4'>
+                              <?php
+                              if($data[0]['ricardo'] == 'accept')
+                              {
+                                $bool = TRUE;
+                              }
+                              else
+                              {
+                                $bool = FALSE;
+                              }
+                              echo form_checkbox('ricardo', 'accept', $bool);
+                              echo " &nbsp Seleccionar si ya se ha confirmado";
+                              ?>
+                            </div>
+                          </div>
+
+                          <div class='form-group'>
+                            <label class='col-sm-2 col-sm-2 control-label'>Llamar al paciente</label>
+                            <div class='col-sm-10 col-lg-4'>
+                              <?php
+                              if($data[0]['llamada'] == 'accept')
+                              {
+                                $bool = TRUE;
+                              }
+                              else
+                              {
+                                $bool = FALSE;
+                              }
+                              echo form_checkbox('llamada', 'accept', $bool);
+                              echo " &nbsp Seleccionar si ya se ha confirmado";
+                              ?>
+                            </div>
+                          </div>
+                              
                           <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Especificaciones</label>
                               <div class="col-sm-10 col-lg-4">
@@ -97,15 +148,15 @@
                                     'class' => 'form-control',
                                     'name' => 'comments',
                                     'rows' => 2,
-                                    'value' => $appointment[0]['comments'],
+                                    'value' => $data[0]['comments'],
                                     );
 
                                   echo form_textarea($comments);
                                   ?>
                               </div>
                           </div>
-                          <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Pago</label>
+                          <!-- <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Pago a proveedor</label>
                               <div class="col-sm-10 col-lg-4">
                                 <div class="input-group">
                                   <div class="input-group-addon">$</div>
@@ -114,7 +165,7 @@
                                     'type' => 'text',
                                     'class' => 'form-control',
                                     'name' => 'payment',
-                                    'value' => $appointment[0]['payment'],
+                                    'value' => $this->input->post('payment'),
                                     );
 
                                   echo form_input($payment);
@@ -128,7 +179,6 @@
                               <div class="col-sm-10 col-lg-4">
                                   <?php 
                                   $options = array(
-                                    $appointment[0]['payment_status'] => $appointment[0]['payment_status'],
                                     'Pagado' => 'Pagado',
                                     'Pendiente' => 'Pendiente',
                                     );
@@ -143,7 +193,6 @@
                               <div class="col-sm-10 col-lg-4">
                                   <?php 
                                   $options = array(
-                                    $appointment[0]['payment_type'] => $appointment[0]['payment_type'],
                                     'Efectivo' => 'Efectivo',
                                     'Tarjeta' => 'Tarjeta',
                                     'Depósito' => 'Depósito',
@@ -153,7 +202,7 @@
 
                                   ?>
                                 </div>
-                          </div>
+                          </div> -->
                           <?php 
 
                           $program = array(
@@ -162,50 +211,6 @@
                                     'value' => $program
                                     );
                           echo form_input($program);
-
-                          $view = array(
-                                    'type' => 'hidden',
-                                    'name' => 'view',
-                                    'value' => 'edit_juices'
-                                    );
-                          echo form_input($view);
-
-                          $category = array(
-                                    'type' => 'hidden',
-                                    'name' => 'category',
-                                    'value' => 'juices'
-                                    );
-                          echo form_input($category);
-
-                          $delivery_date = array(
-                                    'type' => 'hidden',
-                                    'name' => 'delivery_date',
-                                    'value' => TRUE
-                                    );
-                          echo form_input($delivery_date);
-
-                          $therapist = array(
-                                    'type' => 'hidden',
-                                    'name' => 'therapist',
-                                    'value' => TRUE
-                                    );
-                          echo form_input($therapist);
-
-                          $type = array(
-                                    'type' => 'hidden',
-                                    'name' => 'type',
-                                    'value' => TRUE
-                                    );
-
-                          echo form_input($type);
-
-                          $post_id = array(
-                                    'type' => 'hidden',
-                                    'name' => 'post_id',
-                                    'value' => $appointment[0]['appointment_id']
-                                    );
-
-                          echo form_input($post_id);
 
                           ?>
                           <div class="form-group">

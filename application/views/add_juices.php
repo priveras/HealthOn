@@ -20,7 +20,7 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-            <a href="<?php echo base_url('main/detail/' . $client[0]['id'] . '/' . $program . '/' . 'clients')?>"><h3><i class="fa fa-angle-left"></i> <?php echo $client[0]['full_name']?></h3></a>
+            <a href="<?php echo base_url('main/detail_program/' . $client[0]['id'] . '/' . $program . '/' . 'clients')?>"><h3><i class="fa fa-angle-left"></i> <?php echo $client[0]['name'] . $client[0]['last_name1'] . ' - ' . $program?></h3></a>
             <?php if($this->session->userdata('error')): ?>
             <div class="col-lg-5">
             <div class="alert alert-danger alert-dismissible fade in" role="alert">
@@ -37,8 +37,8 @@
             <div class="row mt">
               <div class="col-lg-12">
                   <div class="form-panel">
-                      <h4 class="mb"><i class="fa fa-calendar-o"></i> Datos de Cita</h4>
-                      <?php $attributes = array('role' => 'form', 'class' => 'form-horizontal style-form'); echo form_open('main/add_appointments_to_db/' . $client[0]['id'], $attributes); ?>
+                      <h4 class="mb"><i class="fa fa-folder"></i> Datos para Jugos</h4>
+                      <?php $attributes = array('role' => 'form', 'class' => 'form-horizontal style-form'); echo form_open('main/add_juices_to_db/' . $client[0]['id'], $attributes); ?>
                       <!-- <form class="form-horizontal style-form" method="get"> -->
                           <div class="form-group">
                               <label class="col-sm-2 control-label">Fecha y hora de envío</label>
@@ -89,6 +89,42 @@
                               </div>
                           </div>
                           <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Número de entrega</label>
+                              <div class="col-sm-10 col-lg-4">
+                                  <?php 
+                                  $numerodeentrega = array(
+                                    'type' => 'text',
+                                    'class' => 'form-control',
+                                    'name' => 'numerodeentrega',
+                                    'value' => $this->input->post('numerodeentrega'),
+                                    );
+
+                                  echo form_input($numerodeentrega);
+                                  ?>
+                              </div>
+                          </div>
+                          <div class='form-group'>
+                            <label class='col-sm-2 col-sm-2 control-label'>Confirmado por Ricardo</label>
+                            <div class='col-sm-10 col-lg-4'>
+                              <?php
+
+                              echo form_checkbox('ricardo', 'accept', FALSE);
+                              echo " &nbsp Seleccionar si ya se ha confirmado";
+                              ?>
+                            </div>
+                          </div>
+
+                          <div class='form-group'>
+                            <label class='col-sm-2 col-sm-2 control-label'>Llamar al paciente</label>
+                            <div class='col-sm-10 col-lg-4'>
+                              <?php
+                              echo form_checkbox('llamada', 'accept', FALSE);
+                              echo " &nbsp Seleccionar si ya se ha confirmado";
+                              ?>
+                            </div>
+                          </div>
+                              
+                          <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Especificaciones</label>
                               <div class="col-sm-10 col-lg-4">
                                 <?php 
@@ -104,7 +140,7 @@
                                   ?>
                               </div>
                           </div>
-                          <div class="form-group">
+                          <!-- <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Pago a proveedor</label>
                               <div class="col-sm-10 col-lg-4">
                                 <div class="input-group">
@@ -151,7 +187,7 @@
 
                                   ?>
                                 </div>
-                          </div>
+                          </div> -->
                           <?php 
 
                           $program = array(
@@ -160,42 +196,6 @@
                                     'value' => $program
                                     );
                           echo form_input($program);
-
-                          $view = array(
-                                    'type' => 'hidden',
-                                    'name' => 'view',
-                                    'value' => 'add_juices'
-                                    );
-                          echo form_input($view);
-
-                          $category = array(
-                                    'type' => 'hidden',
-                                    'name' => 'category',
-                                    'value' => 'juices'
-                                    );
-                          echo form_input($category);
-
-                          $delivery_date = array(
-                                    'type' => 'hidden',
-                                    'name' => 'delivery_date',
-                                    'value' => TRUE
-                                    );
-                          echo form_input($delivery_date);
-
-                          $therapist = array(
-                                    'type' => 'hidden',
-                                    'name' => 'therapist',
-                                    'value' => TRUE
-                                    );
-                          echo form_input($therapist);
-
-                          $type = array(
-                                    'type' => 'hidden',
-                                    'name' => 'type',
-                                    'value' => TRUE
-                                    );
-
-                          echo form_input($type);
 
                           ?>
                           <div class="form-group">

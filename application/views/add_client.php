@@ -174,6 +174,21 @@
                           <div class="form-group">
                               <div class="col-sm-10 col-lg-4">
                                 <?php 
+                                  $ciudad = array(
+                                    'type' => 'text',
+                                    'class' => 'form-control',
+                                    'name' => 'ciudad',
+                                    'placeholder' => 'Ciudad',
+                                    'value' => $this->input->post('ciudad'),
+                                    );
+
+                                  echo form_input($ciudad);
+                                  ?>
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <div class="col-sm-10 col-lg-4">
+                                <?php 
                                   $email = array(
                                     'type' => 'email',
                                     'class' => 'form-control',
@@ -228,6 +243,21 @@
                                     );
 
                                   echo form_input($contact_form);
+                                  ?>
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <div class="col-sm-10 col-lg-4">
+                                  <?php 
+                                  $recomendo = array(
+                                    'type' => 'text',
+                                    'class' => 'form-control',
+                                    'name' => 'recomendo',
+                                    'placeholder' => 'Recomendó',
+                                    'value' => $this->input->post('recomendo'),
+                                    );
+
+                                  echo form_input($recomendo);
                                   ?>
                               </div>
                           </div>

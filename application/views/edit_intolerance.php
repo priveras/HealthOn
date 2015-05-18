@@ -16,14 +16,12 @@
       <?php $this->load->view('menu');?>
 
       <!-- sidebar end-->
-
-
       
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-          	<a href="<?php echo base_url('main/detail/' . $client[0]['id'] . '/' . $program . '/' . 'clients')?>"><h3><i class="fa fa-angle-left"></i> <?php echo $client[0]['full_name']?></h3></a>
-          	<?php if($this->session->userdata('error')): ?>
+            <a href="<?php echo base_url('main/detail_program/' . $client[0]['id'] . '/' . $program . '/' . 'clients')?>"><h3><i class="fa fa-angle-left"></i> <?php echo $client[0]['name']?> <?php echo $client[0]['last_name1'] . ' - ' . $program?></h3></a>
+            <?php if($this->session->userdata('error')): ?>
             <div class="col-lg-5">
             <div class="alert alert-danger alert-dismissible fade in" role="alert">
                 <button type="button" class="close" data-dismiss="alert">
@@ -31,17 +29,32 @@
                     <span class="sr-only">Close</span>
                 </button>
                 <strong>¡Hubo un error!</strong>
-                <?php echo validation_errors(); $this->session->unset_userdata('error'); ?>
+                <?php echo $this->session->userdata('error'); $this->session->unset_userdata('error'); ?>
             </div>
             </div>
             <?php endif ?>
-          	<!-- BASIC FORM ELELEMNTS -->
-          	<div class="row mt">
-          		<div class="col-lg-12">
+            <!-- BASIC FORM ELELEMNTS -->
+            <div class="row mt">
+              <div class="col-lg-12">
                   <div class="form-panel">
-                  	  <h4 class="mb"><i class="fa fa-calendar-o"></i> Datos de Cita</h4>
-                      <?php $attributes = array('role' => 'form', 'class' => 'form-horizontal style-form'); echo form_open('main/update_appointments_to_db/' . $client[0]['id'], $attributes); ?>
+                      <h4 class="mb"><i class="fa fa-folder"></i> Datos para RESETest</h4>
+                      <?php $attributes = array('role' => 'form', 'class' => 'form-horizontal style-form'); echo form_open('main/update_resettest_to_db/' . $client[0]['id'] . '/' . $data[0]['id'], $attributes); ?>
                       <!-- <form class="form-horizontal style-form" method="get"> -->
+                          <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Quien tomó la muestra</label>
+                              <div class="col-sm-10 col-lg-4">
+                                <?php 
+                                  $therapist = array(
+                                    'type' => 'text',
+                                    'class' => 'form-control',
+                                    'name' => 'therapist',
+                                    'value' => $data[0]['therapist'],
+                                    );
+
+                                  echo form_input($therapist);
+                                  ?>
+                              </div>
+                          </div>
                           <div class="form-group">
                               <label class="col-sm-2 control-label">Fecha y hora de toma de muestra</label>
                               <div class="col-sm-10 col-lg-4">
@@ -51,7 +64,7 @@
                                     'type' => 'text',
                                     'class' => 'form-control',
                                     'name' => 'datetime',
-                                    'value' => $appointment[0]['datetime'],
+                                    'value' => $data[0]['datetime'],
                                     );
 
                                   echo form_input($datetime);
@@ -69,7 +82,7 @@
                                     'type' => 'text',
                                     'class' => 'form-control',
                                     'name' => 'delivery_date',
-                                    'value' => $appointment[0]['delivery_date'],
+                                    'value' => $data[0]['delivery_date'],
                                     );
 
                                   echo form_input($delivery_date);
@@ -79,21 +92,40 @@
                               </div>
                           </div>
                           <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Terapeuta</label>
+                              <label class="col-sm-2 col-sm-2 control-label">Fecha de resultados</label>
                               <div class="col-sm-10 col-lg-4">
-                                <?php 
-                                  $therapist = array(
+                                <div class='input-group date' id='datetimepicker3'>
+                                  <?php 
+                                  $delivery_date = array(
                                     'type' => 'text',
                                     'class' => 'form-control',
-                                    'name' => 'therapist',
-                                    'value' => $appointment[0]['therapist'],
+                                    'name' => 'results_date',
+                                    'value' => $data[0]['results_date'],
                                     );
 
-                                  echo form_input($therapist);
+                                  echo form_input($delivery_date);
                                   ?>
+                                  <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
                               </div>
                           </div>
                           <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Comentarios</label>
+                              <div class="col-sm-10 col-lg-4">
+                                <?php 
+                                  $comments = array(
+                                    'type' => 'text',
+                                    'class' => 'form-control',
+                                    'name' => 'comments',
+                                    'rows' => 2,
+                                    'value' => $data[0]['comments'],
+                                    );
+
+                                  echo form_textarea($comments);
+                                  ?>
+                              </div>
+                          </div>
+                          <!-- <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Pago a proveedor</label>
                               <div class="col-sm-10 col-lg-4">
                                 <div class="input-group">
@@ -103,7 +135,7 @@
                                     'type' => 'text',
                                     'class' => 'form-control',
                                     'name' => 'payment',
-                                    'value' => $appointment[0]['payment'],
+                                    'value' => $this->input->post('payment'),
                                     );
 
                                   echo form_input($payment);
@@ -111,13 +143,12 @@
                                   <div class="input-group-addon">.00</div>
                                 </div>
                               </div>
-                          </div>
-                          <div class="form-group">
+                          </div> -->
+                          <!-- <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Estatus de pago</label>
                               <div class="col-sm-10 col-lg-4">
                                   <?php 
                                   $options = array(
-                                    $appointment[0]['payment_status'] => $appointment[0]['payment_status'],
                                     'Pagado' => 'Pagado',
                                     'Pendiente' => 'Pendiente',
                                     );
@@ -132,7 +163,6 @@
                               <div class="col-sm-10 col-lg-4">
                                   <?php 
                                   $options = array(
-                                    $appointment[0]['payment_type'] => $appointment[0]['payment_type'],
                                     'Efectivo' => 'Efectivo',
                                     'Tarjeta' => 'Tarjeta',
                                     'Depósito' => 'Depósito',
@@ -142,15 +172,8 @@
 
                                   ?>
                                 </div>
-                          </div>
+                          </div> -->
                           <?php 
-
-                          $address = array(
-                                    'type' => 'hidden',
-                                    'name' => 'address',
-                                    'value' => TRUE
-                                    );
-                          echo form_input($address);
 
                           $program = array(
                                     'type' => 'hidden',
@@ -158,50 +181,6 @@
                                     'value' => $program
                                     );
                           echo form_input($program);
-
-                          $view = array(
-                                    'type' => 'hidden',
-                                    'name' => 'view',
-                                    'value' => 'edit_intolerance'
-                                    );
-                          echo form_input($view);
-
-                          $category = array(
-                                    'type' => 'hidden',
-                                    'name' => 'category',
-                                    'value' => 'intolerance'
-                                    );
-                          echo form_input($category);
-
-                          $days = array(
-                                    'type' => 'hidden',
-                                    'name' => 'days',
-                                    'value' => TRUE
-                                    );
-                          echo form_input($days);
-
-                          $comments = array(
-                                    'type' => 'hidden',
-                                    'name' => 'comments',
-                                    'value' => TRUE
-                                    );
-                          echo form_input($comments);
-
-                          $type = array(
-                                    'type' => 'hidden',
-                                    'name' => 'type',
-                                    'value' => TRUE
-                                    );
-
-                          echo form_input($type);
-
-                          $post_id = array(
-                                    'type' => 'hidden',
-                                    'name' => 'post_id',
-                                    'value' => $appointment[0]['appointment_id']
-                                    );
-
-                          echo form_input($post_id);
 
                           ?>
                           <div class="form-group">
@@ -211,7 +190,7 @@
                                 'type' => 'submit',
                                 'name' => 'submit',
                                 'class' => 'btn btn-theme btn-block',
-                                'value' => 'ACTUALIZAR',
+                                'value' => 'AGREGAR',
                                 );
 
                               //<i class="fa fa-lock"></i>
@@ -222,8 +201,8 @@
                           </div>
                       </form>
                   </div>
-          		</div><!-- col-lg-12-->      	
-          	</div><!-- /row -->
+              </div><!-- col-lg-12-->       
+            </div><!-- /row -->
           </section><! --/wrapper -->
       </section><!-- /MAIN CONTENT -->
 
@@ -255,13 +234,13 @@
     <!--script for this page-->
     <script src="<?php echo base_url()?>assets/js/jquery-ui-1.9.2.custom.min.js"></script>
 
-	<!--custom switch-->
-	<script src="<?php echo base_url()?>assets/js/bootstrap-switch.js"></script>
-	
-	<!--custom tagsinput-->
-	<script src="<?php echo base_url()?>assets/js/jquery.tagsinput.js"></script>
-	
-	<script type="text/javascript" src="<?php echo base_url()?>assets/js/bootstrap-inputmask/bootstrap-inputmask.min.js"></script>
+  <!--custom switch-->
+  <script src="<?php echo base_url()?>assets/js/bootstrap-switch.js"></script>
+  
+  <!--custom tagsinput-->
+  <script src="<?php echo base_url()?>assets/js/jquery.tagsinput.js"></script>
+  
+  <script type="text/javascript" src="<?php echo base_url()?>assets/js/bootstrap-inputmask/bootstrap-inputmask.min.js"></script>
 
   <!-- DateTime picker -->
 
@@ -272,6 +251,10 @@
       });
 
     $('#datetimepicker2').datetimepicker({
+      format: 'YYYY-MM-DD',
+      });
+
+    $('#datetimepicker3').datetimepicker({
       format: 'YYYY-MM-DD',
       });
   });

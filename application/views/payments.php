@@ -52,18 +52,20 @@
           		<div class="col-lg-12">
           			<div class="content-panel">
 	                    <table class="table table-striped table-advance table-hover">
-	                      <h4><i class="fa fa-dollar"></i> Pagos<span><a style="margin-left:7px"class="btn btn-success btn-sm" href="<?php echo base_url('main/add_view/' . $client[0]['id'] . '/' . 'add_payment')?>"><i class="fa fa-plus"></i></a></span></h4>
+	                      <h4><i class="fa fa-dollar"></i> Pagos Programas<span><a style="margin-left:7px"class="btn btn-success btn-sm" href="<?php echo base_url('main/add_view/' . $client[0]['id'] . '/' . 'add_payment')?>"><i class="fa fa-plus"></i></a></span></h4>
 	                        <hr>
 	                        <thead>
 	                        <tr>
 	                            <th><i class="fa fa-file-o"></i> Programa</th>
-	                            <th><i class="fa fa-dollar"></i> Pago Realizado</th>
+	                            <th><i class="fa fa-dollar"></i> Pago Programa</th>
+                              <th><i class="fa fa-dollar"></i> Pago Cavitación</th>
                               <th><i class=" fa fa-barcode"></i> Require Factura</th>
 	                            <th><i class=" fa fa-usd"></i> Forma de pago</th>
 	                            <th><i class=" fa fa-usd"></i> Debe</th>
 	                            <th><i class="fa fa-calendar"></i> Fecha de registro</th>
-	                            <th><i class="fa fa-clock-o"></i> Hora de registro</th>
-	                            <th><i class=" fa fa-comment"></i> Comentarios</th>
+                              <th><i class=" fa fa-folder"></i> Datos de pago</th>
+                              <th> # de factura</th>
+                              <th><i class=" fa fa-comment"></i> Comentarios</th>
 	                        </tr>
 	                        </thead>
 	                        <tbody>
@@ -74,13 +76,35 @@
 	                        <?php else: ?>
 	                        <?php foreach ($payments as $row):?>
 	                        <tr>
-	                        	<td><a href="<?php echo base_url('main/edit_payment/' . $row['id'] . '/' . $client[0]['id'])?>"><?php echo $row['program']?></a></td>
+                            <?php if($row['payment_cavitation'] != '0'):?>
+	                        	<td><a href="<?php echo base_url('main/edit_payment2/' . $row['id'] . '/' . $client[0]['id'])?>"><?php echo $row['program']?></a></td>
+                            <?php else: ?>
+                            <td><a href="<?php echo base_url('main/edit_payment/' . $row['id'] . '/' . $client[0]['id'])?>"><?php echo $row['program']?></a></td>
+                            <?php endif ?>
 	                        	<td>$ <?php echo $row['payment']?></td>
+                            <?php 
+                            if($row['payment_cavitation'] != '0'){
+                              echo '<td>$ ' . $row['payment_cavitation'] . '</td>';
+                            }else{
+                              echo '<td>-</td>';
+                            }
+                            ?>
                             <td><?php echo $row['billing']?></td>
 	                        	<td><?php echo $row['payment_type']?></td>
-	                        	<td>$ <?php echo $row['payment']?></td>
+	                        	<td>$ <?php
+                            $debe = $row['totalpago'] - $row['payment'] - $row['payment_cavitation'];
+                            if($debe > 0)
+                            {
+                              echo $debe;
+                            }
+                            else
+                            {
+                              echo 0;
+                            }
+                            ?></td>
                             <td><?php echo date_format(new DateTime($row['created_at']), 'd F Y')?></td>
-                            <td class="hidden-phone"><?php echo date_format(new DateTime($row['created_at']), 'g:i a')?></td>
+                            <td><?php echo $row['datosdepago']?></td>
+                            <td><?php echo $row['numerodefactura']?></td>
                             <?php if($row['comments'] == ""):?>
                             <td>-</td>
 	                        	<?php else:?>

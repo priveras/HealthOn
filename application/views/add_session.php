@@ -107,7 +107,7 @@
                               ";
                               break;
 
-                            case 'Intolerancia':
+                            case 'RESETest':
                               echo "
                               <div class='form-group'>
                                 <label class='col-sm-2 col-sm-2 control-label'>¿Quien tomó la muestra?</label>
@@ -125,78 +125,30 @@
                               </div>
                               ";
                               break;
-                            
-                            case 'OnDetox':
-                              echo "
-                              <div class='form-group'>
-                                <label class='col-sm-2 col-sm-2 control-label'># Entrega</label>
-                                <div class='col-sm-10 col-lg-4'>";
-                                    $entrega = array(
-                                      'type' => 'text',
-                                      'class' => 'form-control',
-                                      'name' => 'entrega',
-                                      'value' => $this->input->post('entrega'),
-                                      );
-
-                                    echo form_input($entrega);
-                                echo "    
-                                </div>
-                              </div>
-                              ";
-                              echo "
-                              <div class='form-group'>
-                                <label class='col-sm-2 col-sm-2 control-label'>Especificaciones</label>
-                                <div class='col-sm-10 col-lg-4'>";
-                                    $especificaciones = array(
-                                      'type' => 'text',
-                                      'class' => 'form-control',
-                                      'name' => 'especificaciones',
-                                      'rows' => 2,
-                                      'value' => $this->input->post('especificaciones'),
-                                      );
-
-                                    echo form_textarea($especificaciones);
-                                echo "    
-                                </div>
-                              </div>
-                              ";
-
-                              echo "
-                              <div class='form-group'>
-                                <label class='col-sm-2 col-sm-2 control-label'>Confirmado por Ricardo</label>
-                                <div class='col-sm-10 col-lg-4'>";
-                                    echo form_checkbox('Ricardo', 'accept', FALSE);
-                                    echo " &nbsp Seleccionar si ya se ha confirmado";
-                                echo "    
-                                </div>
-                              </div>
-                              ";
-
-                              echo "
-                              <div class='form-group'>
-                                <label class='col-sm-2 col-sm-2 control-label'>Llamad al paciente</label>
-                                <div class='col-sm-10 col-lg-4'>";
-                                    echo form_checkbox('llamada', 'accept', FALSE);
-                                    echo " &nbsp Seleccionar si ya se ha confirmado";
-                                echo "    
-                                </div>
-                              </div>
-                              ";
-
-                              echo "
-                              <div class='form-group'>
-                                <label class='col-sm-2 col-sm-2 control-label'>A distancia</label>
-                                <div class='col-sm-10 col-lg-4'>";
-                                    echo form_checkbox('distancia', 'accept', FALSE);
-                                    echo " &nbsp Seleccionar si es a distancia";
-                                echo "    
-                                </div>
-                              </div>
-                              ";
-                              break;
                           }
 
                           ?>
+
+                          <?php if($program != 'Cavitacion'):?>
+
+                          <div class='form-group'>
+                            <label class='col-sm-2 col-sm-2 control-label'>A distancia</label>
+                            <div class='col-sm-10 col-lg-4'>
+                              <?php 
+                              $distancia = array(
+                                'type' => 'text',
+                                'class' => 'form-control',
+                                'name' => 'distancia',
+                                'value' => $this->input->post('distancia'),
+                                );
+
+                              echo form_input($distancia);
+                              ?>
+                            </div>
+                          </div>
+
+                          <?php endif ?>
+
                           <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Estatus</label>
                               <div class="col-sm-10 col-lg-4">
@@ -212,21 +164,6 @@
 
                                   ?>
                                 </div>
-                          </div>
-                          <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Recomendó</label>
-                              <div class="col-sm-10 col-lg-4">
-                                  <?php 
-                                  $recommended = array(
-                                    'type' => 'text',
-                                    'class' => 'form-control',
-                                    'name' => 'recommended',
-                                    'value' => $this->input->post('recommended'),
-                                    );
-
-                                  echo form_input($recommended);
-                                  ?>
-                              </div>
                           </div>
                           <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Comentarios</label>

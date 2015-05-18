@@ -37,7 +37,6 @@
 	                            <th><i class="fa fa-file-o"></i> Programa</th>
 	                            <th><i class="fa fa-check-square-o"></i> Status</th>
                               <th><i class="fa fa-check"></i> Completada</th>
-                              <th><i class="fa fa-user"></i> Recomendó</th>
                               <th><i class=" fa fa-comment"></i> Comentarios</th>
 	                        </tr>
 	                        </thead>
@@ -78,7 +77,6 @@
                             <?php else: ?>
                             <td><i style="color: red" class="fa fa-times"></i></td>
                             <?php endif ?>
-                            <td><?php echo $row['recommended']?></td>
                             <?php if($row['comments'] == ""):?>
                             <td>-</td>
                             <?php else:?>

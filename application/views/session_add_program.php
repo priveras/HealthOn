@@ -47,9 +47,10 @@
                               $options = array(
                                 'OnDetox' => 'OnDetox',
                                 'MiniOndetox' => 'MiniOndetox',
-                                'Intolerancia' => 'Intolerancia',
+                                'RESETest' => 'RESETest',
                                 'Cavitacion' => 'Cavitacion',
-                                'Consulta' => 'Consulta',
+                                'Consulta1aVez' => 'Consulta 1a Vez',
+                                'ConsultaSubsecuente' => 'Consulta Subsecuente',
                                 );
 
                               echo form_dropdown('program', $options, '', 'class="form-control"');

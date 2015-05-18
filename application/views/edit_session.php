@@ -111,7 +111,7 @@
                               ";
                               break;
 
-                            case 'Intolerancia':
+                            case 'RESETest':
                               echo "
                               <div class='form-group'>
                                 <label class='col-sm-2 col-sm-2 control-label'>¿Quien tomó la muestra?</label>

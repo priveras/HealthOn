@@ -20,6 +20,53 @@
       <!-- sidebar end-->
       <!-- Small modal -->
 
+      <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">Agragar Nuevo Programa</h4>
+            </div>
+            <div class="modal-body">
+              <?php $attributes = array('role' => 'form', 'class' => 'form-horizontal style-form'); echo form_open('main/add_program_detail_to_db/' . $client[0]['id'], $attributes); ?>
+              <!-- <form class="form-horizontal style-form" method="get"> -->
+              <div class="form-group">
+                <br>
+                <div class="col-lg-12">
+                  <?php 
+                    $options = array(
+                      'OnDetox' => 'OnDetox',
+                      'MiniOndetox' => 'MiniOndetox',
+                      'RESETest' => 'RESETest',
+                      // 'Cavitacion' => 'Cavitacion',
+                      // 'Consulta1aVez' => 'Consulta 1a Vez',
+                      // 'ConsultaSubsecuente' => 'Consulta Subsecuente',
+                      );
+
+                    echo form_dropdown('program', $options, '', 'class="form-control"');
+                    ?>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <?php 
+                  $submit = array(
+                    'type' => 'submit',
+                    'name' => 'submit',
+                    'class' => 'btn btn-theme',
+                    'value' => 'AGREGAR',
+                    );
+
+                  //<i class="fa fa-lock"></i>
+                  echo form_submit($submit);
+                  echo form_close(); 
+                  ?>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <section id="main-content">
           <section class="wrapper site-min-height">
           	<a href="<?php echo base_url('main/' . $source)?>"><h3><i class="fa fa-angle-left"></i> 
@@ -38,6 +85,14 @@
 
               case 'suppliers':
                 echo 'Proveedores';
+                break;
+
+              case 'resettest':
+                echo 'RESETest';
+                break;
+
+              case 'juices':
+                echo 'Jugos';
                 break;
 
             }
@@ -63,9 +118,11 @@
                     </div>
                     <br>
                     <div class="row">
-                      <div class="col-lg-4 col-md-4 text-center"></div>
                       <div class="col-lg-4 col-md-4 text-center">
                         <i class="fa fa-map-marker"></i> <?php echo $client[0]['street']?> <?php echo $client[0]['interior_number']?>, <?php echo $client[0]['colonia']?> <?php echo $client[0]['delegacion']?>, <?php echo $client[0]['cp']?>
+                      </div>
+                      <div class="col-lg-4 col-md-4 text-center">
+                        <?php echo $client[0]['ciudad'] ?>
                       </div>
                       <div class="col-lg-4 col-md-4 text-center"></div>
                     </div>
@@ -88,10 +145,10 @@
               <div class="col-lg-2"></div>
               <div class="col-lg-8">
                 <ul class="list-group text-center">
-                  <li class="list-group-item list-group-item-warning">Programas</li>
-                  <?php if(!empty($sessions)): ?>
-                  <?php foreach ($sessions as $row):?>
-                  <li class="list-group-item"><?php echo $row['program']?></li>
+                  <li class="list-group-item list-group-item-warning"><button class="btn btn-info" style="width:200px;" data-toggle="modal" data-target=".bs-example-modal-sm">Programas</button></li>
+                  <?php if(!empty($programs)): ?>
+                  <?php foreach ($programs as $row):?>
+                  <li class="list-group-item"><a href="<?php echo base_url('main/detail_program/' . $client[0]['id'] . '/' . $row['program'])?>"><?php echo $row['program']?></a></li>
                   <?php endforeach ?>
                   <?php else: ?>
                   <li class="list-group-item">No es parte de ningún programa</li>

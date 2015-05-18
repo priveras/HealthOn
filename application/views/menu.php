@@ -37,6 +37,20 @@
                   </li>
 
                   <li class="sub-menu">
+                      <a class="<?php if($this->router->fetch_method()=='b'){ echo 'active'; }?>"href="<?php echo base_url()?>main/juices" >
+                          <i class="fa fa-glass"></i>
+                          <span>Jugos</span>
+                      </a>
+                  </li>
+
+                  <li class="sub-menu">
+                      <a class="<?php if($this->router->fetch_method()=='a'){ echo 'active'; }?>"href="<?php echo base_url()?>main/resettest" >
+                          <i class="fa fa-folder-open-o"></i>
+                          <span>ResetTest</span>
+                      </a>
+                  </li>
+
+                  <li class="sub-menu">
                       <a class="<?php if($this->router->fetch_method()=='commission'){ echo 'active'; }?>" href="<?php echo base_url()?>main/commission" >
                           <i class="fa fa-user-md"></i>
                           <span>Comisiones</span>

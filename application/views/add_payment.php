@@ -37,111 +37,357 @@
           	<div class="row mt">
           		<div class="col-lg-12">
                   <div class="form-panel">
-                  	  <h4 class="mb"><i class="fa fa-calendar-o"></i> Datos de Cita</h4>
-                      <?php $attributes = array('role' => 'form', 'class' => 'form-horizontal style-form'); echo form_open('main/add_payment_to_db/' . $client[0]['id'], $attributes); ?>
-                      <!-- <form class="form-horizontal style-form" method="get"> -->
-                          <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Requiere Factura</label>
-                              <div class="col-sm-10 col-lg-4">
+                    <h4 class="mb"><i class="fa fa-dollar"></i> Datos de Pago</h4>
+                    <div role="tabpanel">
+                      <!-- Nav tabs -->
+                      <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Programa</a></li>
+                        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Programa + Cavitación</a></li>
+                      </ul>
+
+                      <!-- Tab panes -->
+                      <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="home">
+                          <br>
+                          <?php $attributes = array('role' => 'form', 'class' => 'form-horizontal style-form'); echo form_open('main/add_payment_to_db/' . $client[0]['id'], $attributes); ?>
+                          <!-- <form class="form-horizontal style-form" method="get"> -->
+                              <div class="form-group">
+                                  <label class="col-sm-2 col-sm-2 control-label">Requiere Factura</label>
+                                  <div class="col-sm-10 col-lg-4">
+                                      <?php 
+                                      $options = array(
+                                        'No' => 'No',
+                                        'Si' => 'Si',
+                                        );
+
+                                      echo form_dropdown('billing', $options, '', 'class="form-control"');
+
+                                      ?>
+                                    </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-sm-2 col-sm-2 control-label">Programa</label>
+                                  <div class="col-sm-10 col-lg-4">
+                                      <?php 
+
+                                      $options = array(
+                                        'error' => 'Escoger Programa...',
+                                        'OnDetox' => 'OnDetox',
+                                        'MiniOndetox' => 'MiniOndetox',
+                                        'Intolerancia' => 'Intolerancia',
+                                        'Cavitacion' => 'Cavitacion',
+                                        'Consulta1aVez' => 'Consulta 1a Vez',
+                                        'ConsultaSubsecuente' => 'Consulta Subsecuente',
+                                        );
+
+                                      echo form_dropdown('program', $options, '', 'class="form-control"');
+
+                                      ?>
+                                    </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-sm-2 col-sm-2 control-label">Cuánto pagó</label>
+                                  <div class="col-sm-10 col-lg-4">
+                                    <div class="input-group">
+                                      <div class="input-group-addon">$</div>
+                                      <?php 
+                                      $payment = array(
+                                        'type' => 'number',
+                                        'class' => 'form-control',
+                                        'name' => 'payment',
+                                        'value' => $this->input->post('payment'),
+                                        );
+
+                                      echo form_input($payment);
+                                      ?>
+                                      <div class="input-group-addon">.00</div>
+                                    </div>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-sm-2 col-sm-2 control-label">Total Pago</label>
+                                  <div class="col-sm-10 col-lg-4">
+                                    <div class="input-group">
+                                      <div class="input-group-addon">$</div>
+                                      <?php 
+                                      $totalpago = array(
+                                        'type' => 'number',
+                                        'class' => 'form-control',
+                                        'name' => 'totalpago',
+                                        'value' => $this->input->post('totalpago'),
+                                        );
+
+                                      echo form_input($totalpago);
+                                      ?>
+                                      <div class="input-group-addon">.00</div>
+                                    </div>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-sm-2 col-sm-2 control-label">Forma de Pago</label>
+                                  <div class="col-sm-10 col-lg-4">
+                                      <?php 
+
+                                      $options = array(
+                                        'Efectivo' => 'Efectivo',
+                                        'Cheque' => 'Cheque',
+                                        'Deposito' => 'Depósito',
+                                        'Tarjeta' => 'Tarjeta',
+                                        '3Meses' => '3Meses',
+                                        'Clip' => 'Clip',
+                                        );
+
+                                      echo form_dropdown('payment_type', $options, '', 'class="form-control"');
+
+                                      ?>
+                                    </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-sm-2 col-sm-2 control-label">Comentarios</label>
+                                  <div class="col-sm-10 col-lg-4">
+                                    <?php 
+                                      $comments = array(
+                                        'type' => 'text',
+                                        'class' => 'form-control',
+                                        'name' => 'comments',
+                                        'rows' => 2,
+                                        'value' => $this->input->post('comments'),
+                                        );
+
+                                      echo form_textarea($comments);
+                                      ?>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-sm-2 col-sm-2 control-label">Datos de Pago</label>
+                                  <div class="col-sm-10 col-lg-4">
+                                    <?php 
+                                      $datosdepago = array(
+                                        'type' => 'text',
+                                        'class' => 'form-control',
+                                        'name' => 'datosdepago',
+                                        'rows' => 2,
+                                        'value' => $this->input->post('datosdepago'),
+                                        );
+
+                                      echo form_textarea($datosdepago);
+                                      ?>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-sm-2 col-sm-2 control-label">Número de Factura</label>
+                                  <div class="col-sm-10 col-lg-4">
+                                      <?php 
+                                      $numerodefactura = array(
+                                        'type' => 'text',
+                                        'class' => 'form-control',
+                                        'name' => 'numerodefactura',
+                                        'value' => $this->input->post('numerodefactura'),
+                                        );
+
+                                      echo form_input($numerodefactura);
+                                      ?>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                <div class="col-sm-10 col-lg-6">
                                   <?php 
-                                  $options = array(
-                                    'No' => 'No',
-                                    'Si' => 'Si',
+                                  $submit = array(
+                                    'type' => 'submit',
+                                    'name' => 'submit',
+                                    'class' => 'btn btn-theme btn-block',
+                                    'value' => 'GUARDAR PAGO',
                                     );
 
-                                  echo form_dropdown('billing', $options, '', 'class="form-control"');
-
+                                  //<i class="fa fa-lock"></i>
+                                  echo form_submit($submit);
+                                  echo form_close(); 
                                   ?>
-                                </div>
-                          </div>
-                          <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Programa</label>
-                              <div class="col-sm-10 col-lg-4">
-                                  <?php 
-
-                                  $options = array(
-                                    'error' => 'Escoger Programa...',
-                                    'OnDetox' => 'OnDetox',
-                                    'MiniOnDetox' => 'Mini OnDetox',
-                                    'Intolerancia' => 'Test de Intolerancia',
-                                    'Consulta' => 'Consulta',
-                                    'Cavitacion' => 'Cavitación',
-                                    );
-
-                                  echo form_dropdown('program', $options, '', 'class="form-control"');
-
-                                  ?>
-                                </div>
-                          </div>
-                          <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Cuánto ha pagado</label>
-                              <div class="col-sm-10 col-lg-4">
-                                <div class="input-group">
-                                  <div class="input-group-addon">$</div>
-                                  <?php 
-                                  $payment = array(
-                                    'type' => 'text',
-                                    'class' => 'form-control',
-                                    'name' => 'payment',
-                                    'value' => $this->input->post('payment'),
-                                    );
-
-                                  echo form_input($payment);
-                                  ?>
-                                  <div class="input-group-addon">.00</div>
                                 </div>
                               </div>
-                          </div>
-                          <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Forma de Pago</label>
-                              <div class="col-sm-10 col-lg-4">
-                                  <?php 
+                          </form>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="profile">
+                          <br>
+                          <?php $attributes = array('role' => 'form', 'class' => 'form-horizontal style-form'); echo form_open('main/add_payment_to_db/' . $client[0]['id'], $attributes); ?>
+                          <!-- <form class="form-horizontal style-form" method="get"> -->
+                              <div class="form-group">
+                                  <label class="col-sm-2 col-sm-2 control-label">Requiere Factura</label>
+                                  <div class="col-sm-10 col-lg-4">
+                                      <?php 
+                                      $options = array(
+                                        'No' => 'No',
+                                        'Si' => 'Si',
+                                        );
 
-                                  $options = array(
-                                    'Efectivo' => 'Efectivo',
-                                    'Tarjeta' => 'Tarjeta',
-                                    'Online' => 'Online',
-                                    'Deposito' => 'Depósito',
+                                      echo form_dropdown('billing', $options, '', 'class="form-control"');
+
+                                      ?>
+                                    </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-sm-2 col-sm-2 control-label">Programa</label>
+                                  <div class="col-sm-10 col-lg-4">
+                                      <?php 
+
+                                      $options = array(
+                                        'error' => 'Escoger Programa...',
+                                        'OnDetox' => 'OnDetox',
+                                        'MiniOndetox' => 'MiniOndetox',
+                                        'Intolerancia' => 'Intolerancia',
+                                        'Cavitacion' => 'Cavitacion',
+                                        'Consulta1aVez' => 'Consulta 1a Vez',
+                                        'ConsultaSubsecuente' => 'Consulta Subsecuente',
+                                        );
+
+                                      echo form_dropdown('program', $options, '', 'class="form-control"');
+
+                                      ?>
+                                    </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-sm-2 col-sm-2 control-label">Cuánto pagó del programa</label>
+                                  <div class="col-sm-10 col-lg-4">
+                                    <div class="input-group">
+                                      <div class="input-group-addon">$</div>
+                                      <?php 
+                                      $payment = array(
+                                        'type' => 'number',
+                                        'class' => 'form-control',
+                                        'name' => 'payment',
+                                        'value' => $this->input->post('payment'),
+                                        );
+
+                                      echo form_input($payment);
+                                      ?>
+                                      <div class="input-group-addon">.00</div>
+                                    </div>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-sm-2 col-sm-2 control-label">Cuánto pagó de la cavitación</label>
+                                  <div class="col-sm-10 col-lg-4">
+                                    <div class="input-group">
+                                      <div class="input-group-addon">$</div>
+                                      <?php 
+                                      $payment_cavitation = array(
+                                        'type' => 'number',
+                                        'class' => 'form-control',
+                                        'name' => 'payment_cavitation',
+                                        'value' => $this->input->post('payment_cavitation'),
+                                        );
+
+                                      echo form_input($payment_cavitation);
+                                      ?>
+                                      <div class="input-group-addon">.00</div>
+                                    </div>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-sm-2 col-sm-2 control-label">Total Pago</label>
+                                  <div class="col-sm-10 col-lg-4">
+                                    <div class="input-group">
+                                      <div class="input-group-addon">$</div>
+                                      <?php 
+                                      $totalpago = array(
+                                        'type' => 'number',
+                                        'class' => 'form-control',
+                                        'name' => 'totalpago',
+                                        'value' => $this->input->post('totalpago'),
+                                        );
+
+                                      echo form_input($totalpago);
+                                      ?>
+                                      <div class="input-group-addon">.00</div>
+                                    </div>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-sm-2 col-sm-2 control-label">Forma de Pago</label>
+                                  <div class="col-sm-10 col-lg-4">
+                                      <?php 
+
+                                      $options = array(
+                                        'Efectivo' => 'Efectivo',
+                                        'Cheque' => 'Cheque',
+                                        'Deposito' => 'Depósito',
+                                        'Tarjeta' => 'Tarjeta',
+                                        '3Meses' => '3Meses',
+                                        'Clip' => 'Clip',
+                                        );
+
+                                      echo form_dropdown('payment_type', $options, '', 'class="form-control"');
+
+                                      ?>
+                                    </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-sm-2 col-sm-2 control-label">Comentarios</label>
+                                  <div class="col-sm-10 col-lg-4">
+                                    <?php 
+                                      $comments = array(
+                                        'type' => 'text',
+                                        'class' => 'form-control',
+                                        'name' => 'comments',
+                                        'rows' => 2,
+                                        'value' => $this->input->post('comments'),
+                                        );
+
+                                      echo form_textarea($comments);
+                                      ?>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-sm-2 col-sm-2 control-label">Datos de Pago</label>
+                                  <div class="col-sm-10 col-lg-4">
+                                    <?php 
+                                      $datosdepago = array(
+                                        'type' => 'text',
+                                        'class' => 'form-control',
+                                        'name' => 'datosdepago',
+                                        'rows' => 2,
+                                        'value' => $this->input->post('datosdepago'),
+                                        );
+
+                                      echo form_textarea($datosdepago);
+                                      ?>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-sm-2 col-sm-2 control-label">Número de Factura</label>
+                                  <div class="col-sm-10 col-lg-4">
+                                      <?php 
+                                      $numerodefactura = array(
+                                        'type' => 'text',
+                                        'class' => 'form-control',
+                                        'name' => 'numerodefactura',
+                                        'value' => $this->input->post('numerodefactura'),
+                                        );
+
+                                      echo form_input($numerodefactura);
+                                      ?>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                <div class="col-sm-10 col-lg-6">
+                                  <?php 
+                                  $submit = array(
+                                    'type' => 'submit',
+                                    'name' => 'submit',
+                                    'class' => 'btn btn-theme btn-block',
+                                    'value' => 'GUARDAR PAGO',
                                     );
 
-                                  echo form_dropdown('payment_type', $options, '', 'class="form-control"');
-
+                                  //<i class="fa fa-lock"></i>
+                                  echo form_submit($submit);
+                                  echo form_close(); 
                                   ?>
                                 </div>
-                          </div>
-                          <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Comentarios</label>
-                              <div class="col-sm-10 col-lg-4">
-                                <?php 
-                                  $comments = array(
-                                    'type' => 'text',
-                                    'class' => 'form-control',
-                                    'name' => 'comments',
-                                    'rows' => 2,
-                                    'value' => $this->input->post('comments'),
-                                    );
-
-                                  echo form_textarea($comments);
-                                  ?>
                               </div>
-                          </div>
-                          <div class="form-group">
-                            <div class="col-sm-10 col-lg-6">
-                              <?php 
-                              $submit = array(
-                                'type' => 'submit',
-                                'name' => 'submit',
-                                'class' => 'btn btn-theme btn-block',
-                                'value' => 'GUARDAR PAGO',
-                                );
-
-                              //<i class="fa fa-lock"></i>
-                              echo form_submit($submit);
-                              echo form_close(); 
-                              ?>
-                            </div>
-                          </div>
-                      </form>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
                   </div>
           		</div><!-- col-lg-12-->      	
           	</div><!-- /row -->

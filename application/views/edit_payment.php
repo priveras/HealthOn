@@ -37,7 +37,7 @@
           	<div class="row mt">
           		<div class="col-lg-12">
                   <div class="form-panel">
-                  	  <h4 class="mb"><i class="fa fa-calendar-o"></i> Datos de Cita</h4>
+                  	  <h4 class="mb"><i class="fa fa-dollar"></i> Datos de Pago</h4>
                       <?php $attributes = array('role' => 'form', 'class' => 'form-horizontal style-form'); echo form_open('main/update_payments_to_db/' . $client[0]['id'] . '/' . $payment_data[0]['id'], $attributes); ?>
                       <!-- <form class="form-horizontal style-form" method="get"> -->
                           <div class="form-group">
@@ -63,10 +63,11 @@
                                   $options = array(
                                     $payment_data[0]['program'] => $payment_data[0]['program'],
                                     'OnDetox' => 'OnDetox',
-                                    'MiniOnDetox' => 'Mini OnDetox',
-                                    'Intolerancia' => 'Test de Intolerancia',
-                                    'Consulta' => 'Consulta',
-                                    'Cavitacion' => 'Cavitación',
+                                    'MiniOndetox' => 'MiniOndetox',
+                                    'Intolerancia' => 'Intolerancia',
+                                    'Cavitacion' => 'Cavitacion',
+                                    'Consulta1aVez' => 'Consulta 1a Vez',
+                                    'ConsultaSubsecuente' => 'Consulta Subsecuente',
                                     );
 
                                   echo form_dropdown('program', $options, '', 'class="form-control"');
@@ -75,7 +76,7 @@
                                 </div>
                           </div>
                           <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Cuánto ha pagado</label>
+                              <label class="col-sm-2 col-sm-2 control-label">Cuánto pagó</label>
                               <div class="col-sm-10 col-lg-4">
                                 <div class="input-group">
                                   <div class="input-group-addon">$</div>
@@ -94,6 +95,25 @@
                               </div>
                           </div>
                           <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Total Pago</label>
+                              <div class="col-sm-10 col-lg-4">
+                                <div class="input-group">
+                                  <div class="input-group-addon">$</div>
+                                  <?php 
+                                  $totalpago = array(
+                                    'type' => 'number',
+                                    'class' => 'form-control',
+                                    'name' => 'totalpago',
+                                    'value' => $payment_data[0]['totalpago'],
+                                    );
+
+                                  echo form_input($totalpago);
+                                  ?>
+                                  <div class="input-group-addon">.00</div>
+                                </div>
+                              </div>
+                          </div>
+                          <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Forma de Pago</label>
                               <div class="col-sm-10 col-lg-4">
                                   <?php 
@@ -101,9 +121,11 @@
                                   $options = array(
                                     $payment_data[0]['payment_type'] => $payment_data[0]['payment_type'],
                                     'Efectivo' => 'Efectivo',
-                                    'Tarjeta' => 'Tarjeta',
-                                    'Online' => 'Online',
+                                    'Cheque' => 'Cheque',
                                     'Deposito' => 'Depósito',
+                                    'Tarjeta' => 'Tarjeta',
+                                    '3Meses' => '3Meses',
+                                    'Clip' => 'Clip',
                                     );
 
                                   echo form_dropdown('payment_type', $options, '', 'class="form-control"');
@@ -124,6 +146,37 @@
                                     );
 
                                   echo form_textarea($comments);
+                                  ?>
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Datos de Pago</label>
+                              <div class="col-sm-10 col-lg-4">
+                                <?php 
+                                  $datosdepago = array(
+                                    'type' => 'text',
+                                    'class' => 'form-control',
+                                    'name' => 'datosdepago',
+                                    'rows' => 2,
+                                    'value' => $payment_data[0]['datosdepago'],
+                                    );
+
+                                  echo form_textarea($datosdepago);
+                                  ?>
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Número de Factura</label>
+                              <div class="col-sm-10 col-lg-4">
+                                  <?php 
+                                  $numerodefactura = array(
+                                    'type' => 'text',
+                                    'class' => 'form-control',
+                                    'name' => 'numerodefactura',
+                                    'value' => $payment_data[0]['numerodefactura'],
+                                    );
+
+                                  echo form_input($numerodefactura);
                                   ?>
                               </div>
                           </div>
