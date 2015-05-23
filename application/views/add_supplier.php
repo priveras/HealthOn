@@ -193,7 +193,7 @@
                                     'type' => 'number',
                                     'class' => 'form-control',
                                     'name' => 'phone',
-                                    'placeholder' => 'Teléfono',
+                                    'placeholder' => 'Teléfono (Casa/Oficina - Ext)',
                                     'value' => $this->input->post('phone'),
                                     );
 
@@ -213,6 +213,51 @@
                                     );
 
                                   echo form_input($cellphone);
+                                  ?>
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <div class="col-sm-10 col-lg-4">
+                                <?php 
+                                  $empresa = array(
+                                    'type' => 'text',
+                                    'class' => 'form-control',
+                                    'name' => 'empresa',
+                                    'placeholder' => 'Empresa',
+                                    'value' => $this->input->post('empresa'),
+                                    );
+
+                                  echo form_input($empresa);
+                                  ?>
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <div class="col-sm-10 col-lg-4">
+                                <?php 
+                                  $puesto = array(
+                                    'type' => 'text',
+                                    'class' => 'form-control',
+                                    'name' => 'puesto',
+                                    'placeholder' => 'Puesto',
+                                    'value' => $this->input->post('puesto'),
+                                    );
+
+                                  echo form_input($puesto);
+                                  ?>
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <div class="col-sm-10 col-lg-4">
+                                <?php 
+                                  $contacto = array(
+                                    'type' => 'text',
+                                    'class' => 'form-control',
+                                    'name' => 'contacto',
+                                    'placeholder' => 'Como desea ser contactado',
+                                    'value' => $this->input->post('contacto'),
+                                    );
+
+                                  echo form_input($contacto);
                                   ?>
                               </div>
                           </div>

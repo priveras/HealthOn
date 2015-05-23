@@ -35,7 +35,6 @@
                         <thead>
                         <tr>
                           <th><i class="fa fa-calendar"></i> Fecha de muestra</th>
-                            <th><i class="fa fa-clock-o"></i> Hora de muestra</th>
                             <th><i class="fa fa-user-md"></i> Tomo la muestra</th>
                             <th><i class="fa fa-calendar"></i> Fecha Envío</th>
                             <th><i class="fa fa-calendar"></i> Fecha Resultados</th>
@@ -52,8 +51,7 @@
                         <?php foreach ($appointments as $row):?>
                         <?php if($row['category'] == 'resettest'):?>
                         <tr>
-                          <td><a href="<?php echo base_url('main/edit_resettest/' . $client[0]['id'] . '/' . $program  . '/' . $row['id'])?>"><?php echo date_format(new DateTime($row['datetime']), 'd F Y')?></a></td>
-                          <td class="hidden-phone"><?php echo date_format(new DateTime($row['datetime']), 'g:i a')?></td>
+                          <td><a href="<?php echo base_url('main/edit_resettest/' . $client[0]['id'] . '/' . $program  . '/' . $row['id'] . '/detail_program')?>"><?php echo date_format(new DateTime($row['datetime']), 'd F Y')?></a></td>
                           <td><?php echo $row['therapist']?></td>
                           <td><?php echo date_format(new DateTime($row['delivery_date']), 'd F Y')?></td>
                           <td><?php echo date_format(new DateTime($row['results_date']), 'd F Y')?></td>
@@ -80,6 +78,7 @@
                             <th><i class="fa fa-map-marker"></i> Ubicacion</th>
                             <th><i class="fa fa-sun-o"></i> Días</th>
                             <th> # de Entrega</th>
+                            <th> # de Pedido</th>
                             <th><i class=" fa fa-check"></i> Conf. Ricardo</th>
                             <th><i class=" fa fa-check"></i> Conf. Paciente</th>
                             <th><i class=" fa fa-folder"></i> Programa</th>
@@ -95,11 +94,12 @@
                         <?php foreach ($appointments as $row):?>
                         <?php if($row['category'] == 'juices'):?>
                         <tr>
-                            <td><a href="<?php echo base_url('main/edit_juices/' . $client[0]['id'] . '/' . $program  . '/' . $row['id'])?>"><?php echo date_format(new DateTime($row['datetime']), 'd F Y')?></a></td>
+                            <td><a href="<?php echo base_url('main/edit_juices/' . $client[0]['id'] . '/' . $program  . '/' . $row['id'] . '/detail_program')?>"><?php echo date_format(new DateTime($row['datetime']), 'd F Y')?></a></td>
                             <td class="hidden-phone"><?php echo date_format(new DateTime($row['datetime']), 'g:i a')?></td>
                             <td><?php echo $row['address']?></td>
                             <td><?php echo $row['days']?></td>
                             <td><?php echo $row['numerodeentrega']?></td>
+                            <td><?php echo $row['numerodepedido']?></td>
                             <td>
                               <?php 
                               if($row['ricardo'] == 'accept'){

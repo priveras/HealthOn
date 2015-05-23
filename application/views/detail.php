@@ -38,7 +38,7 @@
                       'OnDetox' => 'OnDetox',
                       'MiniOndetox' => 'MiniOndetox',
                       'RESETest' => 'RESETest',
-                      // 'Cavitacion' => 'Cavitacion',
+                      'Cavitacion' => 'Cavitacion',
                       // 'Consulta1aVez' => 'Consulta 1a Vez',
                       // 'ConsultaSubsecuente' => 'Consulta Subsecuente',
                       );
@@ -124,7 +124,9 @@
                       <div class="col-lg-4 col-md-4 text-center">
                         <?php echo $client[0]['ciudad'] ?>
                       </div>
-                      <div class="col-lg-4 col-md-4 text-center"></div>
+                      <div class="col-lg-4 col-md-4 text-center">
+                        Contacto: <?php echo $client[0]['contact_form'] ?>
+                      </div>
                     </div>
                   </div>
                 </div>

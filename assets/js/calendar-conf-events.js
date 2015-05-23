@@ -72,7 +72,7 @@ var Script = function () {
             url: 'http://localhost:8888/codeigniter/HealthOn/main/json_calendar', // use the `url` property
         },
         {
-            url: 'http://localhost:8888/codeigniter/HealthOn/main/json_calendar_delivery', // use the `url` property
+            url: 'http://localhost:8888/codeigniter/HealthOn/main/json_calendar2', // use the `url` property
         }
 
         // any other sources...

@@ -103,6 +103,21 @@
                                   ?>
                               </div>
                           </div>
+                          <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Número de pedido</label>
+                              <div class="col-sm-10 col-lg-4">
+                                  <?php 
+                                  $numerodepedido = array(
+                                    'type' => 'text',
+                                    'class' => 'form-control',
+                                    'name' => 'numerodepedido',
+                                    'value' => $this->input->post('numerodepedido'),
+                                    );
+
+                                  echo form_input($numerodepedido);
+                                  ?>
+                              </div>
+                          </div>
                           <div class='form-group'>
                             <label class='col-sm-2 col-sm-2 control-label'>Confirmado por Ricardo</label>
                             <div class='col-sm-10 col-lg-4'>

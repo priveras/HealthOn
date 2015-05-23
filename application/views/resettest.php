@@ -33,7 +33,7 @@
                               <tr>
                                   <th><i class="fa fa-user"></i> Cliente</th>
                                   <th><i class="fa fa-calendar"></i> Fecha de muestra</th>
-                                  <th><i class="fa fa-clock-o"></i> Hora de muestra</th>
+                                  <!-- <th><i class="fa fa-clock-o"></i> Hora de muestra</th> -->
                                   <th><i class="fa fa-user-md"></i> Tomo la muestra</th>
                                   <th><i class="fa fa-calendar"></i> Fecha Envío</th>
                                   <th><i class="fa fa-calendar"></i> Fecha Resultados</th>
@@ -46,7 +46,7 @@
                                 <tr>
                                   <td><a href="<?php echo base_url('main/detail/' . $row['client_id'] . '/' . 'resettest')?>"><?php echo $row['name'] . ' ' . $row['last_name1']?></a></td>
                                   <td><?php echo date_format(new DateTime($row['datetime']), 'd F Y')?></td>
-                                  <td class="hidden-phone"><?php echo date_format(new DateTime($row['datetime']), 'g:i a')?></td>
+                                  <!-- <td class="hidden-phone"><?php echo date_format(new DateTime($row['datetime']), 'g:i a')?></td> -->
                                   <td><?php echo $row['therapist']?></td>
                                   <td><?php echo date_format(new DateTime($row['delivery_date']), 'd F Y')?></td>
                                   <td><?php echo date_format(new DateTime($row['results_date']), 'd F Y')?></td>

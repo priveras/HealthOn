@@ -163,6 +163,17 @@ class Main_model extends CI_Model{
 		return $query->result_array();
 	}
 
+	public function get_calendar2()
+	{
+		$this->db->select('appointments.*, appointments.id AS appointment_id, clients.*');
+		$this->db->from('appointments');
+		$this->db->join('clients', 'clients.id = appointments.client_id');
+
+		$query = $this->db->get();
+
+		return $query->result_array();
+	}
+
 	public function get_team()
 	{
 		$query = $this->db->get('admins');
@@ -190,6 +201,19 @@ class Main_model extends CI_Model{
 		return $query->result_array();
 	}
 
+	public function get_all_sessions()
+	{
+		
+		$this->db->select('*');
+		$this->db->from('sessions');
+		$this->db->order_by("sessions.therapist", 'asc'); 
+		$this->db->join('clients', 'clients.id = sessions.client_id');
+
+		$query = $this->db->get();
+
+		return $query->result_array();
+	}
+
 	public function get_programs($client_id)
 	{
 		$this->db->where('client_id', $client_id);
@@ -213,12 +237,12 @@ class Main_model extends CI_Model{
 		return $query->result_array();
 	}
 
-	public function get_juices_reset($category)
+	public function get_juices_reset($category, $order)
 	{
 		$this->db->select('*');
 		$this->db->from('appointments');
 		$this->db->where('appointments.category', $category);
-		$this->db->order_by("appointments.datetime", "desc"); 
+		$this->db->order_by("appointments.datetime", $order); 
 		$this->db->join('clients', 'clients.id = appointments.client_id');
 
 		$query = $this->db->get();

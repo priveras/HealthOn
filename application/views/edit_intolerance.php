@@ -20,7 +20,11 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
+            <?php if($where == "calendario"):?>
+            <a href="<?php echo base_url('main/calendar')?>"><h3><i class="fa fa-angle-left"></i> Calendario</h3></a>
+            <?php else: ?>
             <a href="<?php echo base_url('main/detail_program/' . $client[0]['id'] . '/' . $program . '/' . 'clients')?>"><h3><i class="fa fa-angle-left"></i> <?php echo $client[0]['name']?> <?php echo $client[0]['last_name1'] . ' - ' . $program?></h3></a>
+            <?php endif ?>
             <?php if($this->session->userdata('error')): ?>
             <div class="col-lg-5">
             <div class="alert alert-danger alert-dismissible fade in" role="alert">

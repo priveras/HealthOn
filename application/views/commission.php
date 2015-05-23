@@ -22,8 +22,7 @@
       <section id="main-content">
           <section class="wrapper site-min-height">
             <h3><i class="fa fa-user-md"></i> Comisiones</h3>
-          	<br>
-          	<div class="row">
+          	<br>          	<div class="row">
           		<div class="col-lg-12">
           			<div class="content-panel">
 	                    <table class="table table-striped table-advance table-hover">
@@ -33,24 +32,28 @@
 	                        <tr>
 	                            <th><i class="fa fa-user-md"></i> Terapeuta</th>
 	                            <th><i class="fa fa-user"></i> Paciente</th>
+                              <th><i class="fa fa-user"></i> # de Consulta</th>
+                              <th><i class="fa fa-user"></i> Programa</th>
                               <th><i class=" fa fa-dollar"></i> Comisión</th>
 	                        </tr>
 	                        </thead>
 	                        <tbody>
-	                        <?php if(empty($payments)):?>
+	                        <?php if(empty($sessions)):?>
 	                        <tr>
-	                          <td>-</td><td>-</td><td>-</td>
+	                          <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
 	                        </tr>
 	                        <?php else: ?>
-	                        <?php foreach ($payments as $row):?>
+	                        <?php $i = 1; foreach ($sessions as $row):?>
+                          <?php if($row['completed'] == 'accept'):?>
 	                        <tr>
-	                        	<td><a href="<?php echo base_url('main/edit_payment/' . $row['id'] . '/' . $client[0]['id'])?>"><?php echo $row['program']?></a></td>
-	                        	<td>$ <?php echo $row['payment']?></td>
-                            <td><?php echo $row['billing']?></td>
-	                        	<td><?php echo $row['payment_type']?></td>
-	                        	<td>$ <?php echo $row['payment']?></td>
+	                        	<td><?php echo $row['therapist']?></a></td>
+	                        	<td><?php echo $row['name'] . ' ' . $row['last_name1']?></td>
+                            <td><?php echo $i ?></td>
+	                        	<td><?php echo $row['program']?></td>
+	                        	<td>$ 200</td>
 	                        </tr>
-	                        <?php endforeach ?>
+                          <?php endif ?>
+	                        <?php $i++; endforeach ?>
 	                        <?php endif ?>
 	                        </tbody>
 	                    </table>

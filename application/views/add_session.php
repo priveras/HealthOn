@@ -48,7 +48,7 @@
                           <div class="form-group">
                               <label class="col-sm-2 control-label">
                                 <?php if($program == "OnDetox" || $program == "MiniOndetox"){
-                                  echo "Fecha y hora de entrega";
+                                  echo "Fecha y hora de cita";
                                 } else {
                                   echo "Fecha y hora de cita";
                                 }
@@ -266,7 +266,7 @@
   <script type="text/javascript">
   $(function () {
     $('#datetimepicker1').datetimepicker({
-      format: 'YYYY-MM-DD HH:mm',
+      format: 'YYYY-MM-DD hh:mm',
       });
 
   });

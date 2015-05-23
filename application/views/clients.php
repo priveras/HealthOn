@@ -37,6 +37,7 @@
                                   <th><i class="fa fa-mobile-phone"></i> Celular</th>
                                   <th><i class="fa fa-phone"></i> Casa</th>
                                   <th><i class=" fa fa-file-text-o"></i> Programa</th>
+                                  <th><i class=" fa fa-file-text-o"></i> Preferencia de Contacto</th>
                               </tr>
                               </thead>
                               <tbody>
@@ -71,6 +72,7 @@
                                   <td><?php echo $row['cellphone']?></td>
                                   <td><?php echo $row['phone']?></td>
                                   <td><span class="label label-<?php echo $label?> label-mini"><?php echo $program?></span></td>
+                                  <td><?php echo $row['contact_form']?></td>
                               </tr>
                               <?php endforeach ?>
                               </tbody>

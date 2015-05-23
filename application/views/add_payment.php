@@ -105,7 +105,7 @@
                                   </div>
                               </div>
                               <div class="form-group">
-                                  <label class="col-sm-2 col-sm-2 control-label">Total Pago</label>
+                                  <label class="col-sm-2 col-sm-2 control-label">Costo Total del Programa</label>
                                   <div class="col-sm-10 col-lg-4">
                                     <div class="input-group">
                                       <div class="input-group-addon">$</div>
@@ -284,7 +284,7 @@
                                   </div>
                               </div>
                               <div class="form-group">
-                                  <label class="col-sm-2 col-sm-2 control-label">Total Pago</label>
+                                  <label class="col-sm-2 col-sm-2 control-label">Costo Total del Programa</label>
                                   <div class="col-sm-10 col-lg-4">
                                     <div class="input-group">
                                       <div class="input-group-addon">$</div>

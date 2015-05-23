@@ -38,6 +38,7 @@
                                   <th><i class="fa fa-envelope-o"></i> Email</th>
                                   <th><i class="fa fa-mobile-phone"></i> Celular</th>
                                   <th><i class="fa fa-phone"></i> Casa</th>
+                                  <th><i class=" fa fa-file-text-o"></i> Preferencia de Contacto</th>
                                   <th><i class="fa fa-phone"></i> Programa</th>
                                   <!-- <th><i class="fa fa-envelope"></i> Programa</th> -->
                               </tr>
@@ -48,6 +49,7 @@
                                   <td>{{client.email}}</td>
                                   <td>{{client.cellphone}}</td>
                                   <td>{{client.phone}}</td>
+                                  <td>{{client.contact_form}}</td>
                                   <td>{{client.programs}}</td>
                                   <!-- <td>{{client.program}}</td> -->
                                 </tr>

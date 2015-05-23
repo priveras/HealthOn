@@ -20,7 +20,11 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-            <a href="<?php echo base_url('main/detail_program/' . $client[0]['id'] . '/' . $program . '/' . 'clients')?>"><h3><i class="fa fa-angle-left"></i> <?php echo $client[0]['name'] . $client[0]['last_name1'] . ' - ' . $program?></h3></a>
+            <?php if($where == "calendario"):?>
+            <a href="<?php echo base_url('main/calendar')?>"><h3><i class="fa fa-angle-left"></i> Calendario</h3></a>
+            <?php else: ?>
+            <a href="<?php echo base_url('main/detail_program/' . $client[0]['id'] . '/' . $program . '/' . 'clients')?>"><h3><i class="fa fa-angle-left"></i> <?php echo $client[0]['name']?> <?php echo $client[0]['last_name1'] . ' - ' . $program?></h3></a>
+            <?php endif ?>
             <?php if($this->session->userdata('error')): ?>
             <div class="col-lg-5">
             <div class="alert alert-danger alert-dismissible fade in" role="alert">
@@ -100,6 +104,21 @@
                                     );
 
                                   echo form_input($numerodeentrega);
+                                  ?>
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Número de Pedido</label>
+                              <div class="col-sm-10 col-lg-4">
+                                  <?php 
+                                  $numerodepedido = array(
+                                    'type' => 'text',
+                                    'class' => 'form-control',
+                                    'name' => 'numerodepedido',
+                                    'value' => $data[0]['numerodepedido'],
+                                    );
+
+                                  echo form_input($numerodepedido);
                                   ?>
                               </div>
                           </div>

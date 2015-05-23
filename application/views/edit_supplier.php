@@ -216,6 +216,51 @@
                                   ?>
                               </div>
                           </div>
+                          <div class="form-group">
+                              <div class="col-sm-10 col-lg-4">
+                                <?php 
+                                  $empresa = array(
+                                    'type' => 'text',
+                                    'class' => 'form-control',
+                                    'name' => 'empresa',
+                                    'placeholder' => 'Empresa',
+                                    'value' => $supplier_data[0]['empresa'],
+                                    );
+
+                                  echo form_input($empresa);
+                                  ?>
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <div class="col-sm-10 col-lg-4">
+                                <?php 
+                                  $puesto = array(
+                                    'type' => 'text',
+                                    'class' => 'form-control',
+                                    'name' => 'puesto',
+                                    'placeholder' => 'Puesto',
+                                    'value' => $supplier_data[0]['puesto'],
+                                    );
+
+                                  echo form_input($puesto);
+                                  ?>
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <div class="col-sm-10 col-lg-4">
+                                <?php 
+                                  $contacto = array(
+                                    'type' => 'text',
+                                    'class' => 'form-control',
+                                    'name' => 'contacto',
+                                    'placeholder' => 'Como desea ser contactado',
+                                    'value' => $supplier_data[0]['contacto'],
+                                    );
+
+                                  echo form_input($contacto);
+                                  ?>
+                              </div>
+                          </div>
                           <h4 class="mb"><i class="fa fa-barcode"></i> Datos de Facturación</h4>
                           <div class="form-group">
                               <div class="col-sm-10 col-lg-4">

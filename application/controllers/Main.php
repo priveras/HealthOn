@@ -56,7 +56,8 @@ class Main extends CI_Controller {
 	public function commission()
 	{
 		$this->load->view('html');
-		$this->load->view('commission');
+		$data['sessions'] = $this->main_model->get_all_sessions();
+		$this->load->view('commission', $data);
 	}
 
 	// public function clients()
@@ -513,13 +514,13 @@ class Main extends CI_Controller {
 		$this->form_validation->set_rules('name', 'Nombre completo', 'required|trim');
 		$this->form_validation->set_rules('last_name1', 'Apellida Paterno', 'required|trim');
 		$this->form_validation->set_rules('last_name2', 'Apellido Materno', 'required|trim');
-		$this->form_validation->set_rules('street', 'Calle y número', 'required|trim');
-		$this->form_validation->set_rules('interior_number', 'Numero interior', 'required|trim');
-		$this->form_validation->set_rules('colonia', 'Colonia', 'required|trim');
-		$this->form_validation->set_rules('delegacion', 'Delegacion', 'required|trim');
-		$this->form_validation->set_rules('cp', 'CP', 'required|trim');
+		$this->form_validation->set_rules('street', 'Calle y número', 'trim');
+		$this->form_validation->set_rules('interior_number', 'Numero interior', 'trim');
+		$this->form_validation->set_rules('colonia', 'Colonia', 'trim');
+		$this->form_validation->set_rules('delegacion', 'Delegacion', 'trim');
+		$this->form_validation->set_rules('cp', 'CP', 'trim');
 		$this->form_validation->set_rules('contact_form', 'Forma de contacto', 'trim');
-		$this->form_validation->set_rules('email', 'Email', 'required|trim|is_unique[suppliers.email]');
+		$this->form_validation->set_rules('email', 'Email', 'trim|is_unique[suppliers.email]');
 		$this->form_validation->set_rules('phone', 'Teléfono', 'trim');
 		$this->form_validation->set_rules('cellphone', 'Celular', 'trim');
 		$this->form_validation->set_rules('billing_full_name', 'Nombre', 'trim');
@@ -550,6 +551,9 @@ class Main extends CI_Controller {
 				'email' => $this->input->post('email'),
 				'phone' => $this->input->post('phone'),
 				'cellphone' => $this->input->post('cellphone'),
+				'empresa' => $this->input->post('empresa'),
+				'puesto' => $this->input->post('puesto'),
+				'contacto' => $this->input->post('contacto'),
 				'billing_full_name' => $this->input->post('billing_full_name'),
 				'billing_address' => $this->input->post('billing_address'),
 				'rfc' => $this->input->post('rfc'),
@@ -621,6 +625,9 @@ class Main extends CI_Controller {
 				'email' => $this->input->post('email'),
 				'phone' => $this->input->post('phone'),
 				'cellphone' => $this->input->post('cellphone'),
+				'empresa' => $this->input->post('empresa'),
+				'puesto' => $this->input->post('puesto'),
+				'contacto' => $this->input->post('contacto'),
 				'billing_full_name' => $this->input->post('billing_full_name'),
 				'billing_address' => $this->input->post('billing_address'),
 				'rfc' => $this->input->post('rfc'),
@@ -894,17 +901,28 @@ class Main extends CI_Controller {
 		echo json_encode($data);
 	}
 
-	public function json_calendar_delivery()
+	public function json_calendar2()
 	{
-		$query = $this->main_model->get_calendar();
+		$query = $this->main_model->get_calendar2();
 		$i = 0;
 		foreach ($query as $row) {
+			switch ($row['category']) {
+				case 'resettest':
+					$title = "RESETest para ";
+					$url = 'edit_resettest';
+					break;
+				
+				case 'juices':
+					$title = "Enviar jugos a ";
+					$url = 'edit_juices';
+					break;
+			}
 			$data[$i] = array(
-				'title' =>  'Enviar intolerancia a ' . $row['full_name'],
-				'start' => $row['delivery_date'],
+				'title' =>  $title . $row['name'] . ' ' . $row['last_name1'],
+				'start' => $row['datetime'],
 				'allDay' => false,
-				'url' => base_url('main/edit_session/' . $row['session_id'] . '/' . $row['client_id'] . '/' . $row['program'] . '/' . 'calendar'),
-				'color' => '#d9534f'
+				'url' => base_url('main/' . $url  . '/' . $row['client_id'] . '/' . $row['program'] . '/' . $row['appointment_id'] . '/calendario'),
+				'color' => '#666666'
 				);
 			$i++;
 		}
@@ -961,9 +979,10 @@ class Main extends CI_Controller {
 		$this->load->view('add_intolerance', $data);
 	}
 
-	public function edit_resettest($client_id, $program, $post_id)
+	public function edit_resettest($client_id, $program, $post_id, $where)
 	{
 		$data['client'] = $this->main_model->get_client($client_id);
+		$data['where'] = $where;
 		$data['data'] = $this->main_model->get_appointment($client_id, $post_id);
 		$data['program'] = $program;
 		$this->load->view('html');
@@ -1034,9 +1053,10 @@ class Main extends CI_Controller {
 		$this->load->view('add_juices', $data);
 	}
 
-	public function edit_juices($client_id, $program, $post_id)
+	public function edit_juices($client_id, $program, $post_id, $where)
 	{
 		$data['client'] = $this->main_model->get_client($client_id);
+		$data['where'] = $where;
 		$data['data'] = $this->main_model->get_appointment($client_id, $post_id);
 		$data['program'] = $program;
 		$this->load->view('html');
@@ -1058,6 +1078,7 @@ class Main extends CI_Controller {
 				'datetime' => $this->input->post('datetime'),
 				'days' => $this->input->post('days'),
 				'numerodeentrega' => $this->input->post('numerodeentrega'),
+				'numerodepedido' => $this->input->post('numerodepedido'),
 				'ricardo' => $this->input->post('ricardo'),
 				'llamada' => $this->input->post('llamada'),
 				'comments' => $this->input->post('comments'),
@@ -1085,6 +1106,7 @@ class Main extends CI_Controller {
 				'datetime' => $this->input->post('datetime'),
 				'days' => $this->input->post('days'),
 				'numerodeentrega' => $this->input->post('numerodeentrega'),
+				'numerodepedido' => $this->input->post('numerodepedido'),
 				'ricardo' => $this->input->post('ricardo'),
 				'llamada' => $this->input->post('llamada'),
 				'comments' => $this->input->post('comments'),
@@ -1099,14 +1121,14 @@ class Main extends CI_Controller {
 
 	public function juices()
 	{
-		$data['data'] = $this->main_model->get_juices_reset('juices');
+		$data['data'] = $this->main_model->get_juices_reset('juices', 'desc');
 		$this->load->view('html');
 		$this->load->view('juices', $data);
 	}
 
 	public function resettest()
 	{
-		$data['data'] = $this->main_model->get_juices_reset('resettest');
+		$data['data'] = $this->main_model->get_juices_reset('resettest', 'asc');
 		$this->load->view('html');
 		$this->load->view('resettest', $data);
 	}
